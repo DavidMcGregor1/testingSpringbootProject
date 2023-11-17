@@ -12,12 +12,10 @@ import java.util.*;
 @Controller
 public class HelloWorldController {
 
-    public HelloWorldController(CustomerRepository c,AcronymsRepository a) {
-        repositoryCustomer = c;
+    public HelloWorldController(AcronymsRepository a) {
         repositoryAcronyms = a;
     }
 
-    private CustomerRepository repositoryCustomer;
     private AcronymsRepository repositoryAcronyms;
 
     @GetMapping(path = "/")
@@ -27,28 +25,34 @@ public class HelloWorldController {
 
 
     @GetMapping(path = "/displayNewAcronyms")
-    public String displayNewAcronyms(Model model) {
+    public String displayNewAcronyms(@RequestParam(name = "category", required = false) String category, Model model) {
 
         System.out.println("Hit displayAcronyms API");
 
         List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
-        System.out.println("All data" + allAcronyms);
+
+
 
         model.addAttribute("acronyms", allAcronyms);
 
-        String result = "Data ---> ";
-
-        for (int i = 0; i < allAcronyms.stream().count(); i++) {
-            Acronyms a = allAcronyms.get(i);
-            System.out.println(i);
-            System.out.println(a);
-            System.out.println(a.acronym);
-            if (a != null) {
-                result = result + a.getAcronym() + a.getMeaning() + a.getDescription() + ", "
-                ;            }
-        }
         return "newDisplayAcronyms";
     }
+
+
+
+    @GetMapping(path = "/acronymsByCategory")
+    @ResponseBody
+    public List<Acronyms> getAcronymsByCategory(@RequestParam(name = "category") String category) {
+        System.out.println("Hit acronymsByCategory API");
+
+        // Perform a case-insensitive search by category
+        List<Acronyms> acronyms = repositoryAcronyms.findByCategoryIgnoreCase(category);
+
+        return acronyms;
+    }
+
+
+
 
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -62,6 +66,7 @@ public class HelloWorldController {
         AcronymsVm result = new AcronymsVm();
         result.acronyms = acronymId.get().getAcronym();
         result.meaning = acronymId.get().getMeaning();
+        result.category = acronymId.get().getCategory();
         result.id = acronymId.get().getId();
         result.description = acronymId.get().description;
 

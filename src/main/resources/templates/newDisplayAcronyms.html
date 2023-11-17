@@ -430,13 +430,12 @@ label {
 
       <div class="filter-section">
         <p id="filter-by-text">Filter by:</p>
-        <select class="select-option" name="category">
+        <select class="select-option" name="category" id="categoryDropdown">
           <option value="" disabled selected>
             Category
           </option>
           <option value="Business">Business</option>
           <option value="Tech">Tech</option>
-          <option value="favourites">Favourites</option>
         </select>
         <select class="select-option" name="Length">
           <option value="" disabled selected>
@@ -534,7 +533,66 @@ document.addEventListener('DOMContentLoaded', function () {
             updatedDescription(clickedAcronymId);
         });
     });
+
+    const categoryDropdown = document.getElementById('categoryDropdown')
+    categoryDropdown.addEventListener('change', function () {
+      const selectedCategory = categoryDropdown.value;
+      updateTable(selectedCategory)
+    })
 });
+
+function updateTableContent(acronyms) {
+    // Get the table body element
+    var tbody = document.querySelector('#acronym-table tbody');
+
+    // Clear existing rows from the table
+    tbody.innerHTML = '';
+
+    // Iterate through the acronyms and add rows to the table
+    acronyms.forEach(function (acronym) {
+        var row = document.createElement('tr');
+
+        // Set the data-acronym-id attribute for each row
+        row.setAttribute('data-acronym-id', acronym.id);
+
+        // Create cells for acronym and meaning
+        var acronymCell = document.createElement('td');
+        acronymCell.textContent = acronym.acronym;
+
+        var meaningCell = document.createElement('td');
+        meaningCell.textContent = acronym.meaning;
+
+        // Append cells to the row
+        row.appendChild(acronymCell);
+        row.appendChild(meaningCell);
+
+        // Append the row to the table body
+        tbody.appendChild(row);
+    });
+}
+
+
+
+function updateTable(category) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var acronyms = JSON.parse(xhr.responseText);
+
+                // Update the table with the new data
+                updateTableContent(acronyms);
+            } else {
+                console.error("Error:", xhr.status);
+            }
+        }
+    };
+
+    xhr.open('GET', '/acronymsByCategory?category=' + category, true);
+    xhr.send();
+}
+
 
 
 function updatedDescription(acronymId) {
