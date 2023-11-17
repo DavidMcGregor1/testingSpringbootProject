@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Customer List</title>
+  <style>
+
+        body {
+            padding: 10%;
+        }
+
+        .scrollable-table {
+            max-height: 300px; /* Adjust the max-height as needed */
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<h2>Acronym List</h2>
+<div class="scrollable-table">
+  <table>
+    <thead>
+    <tr>
+      <th>Acronym</th>
+      <th>Meaning</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="acronym : ${acronyms}">
+      <td th:text="${acronym.acronym}"></td>
+      <td th:text="${acronym.meaning}"></td>
+      <td th:text="${acronym.description}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

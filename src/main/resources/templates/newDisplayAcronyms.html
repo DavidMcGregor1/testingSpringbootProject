@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Display Acronyms</title>
+    <style>
+
+/* ---------- MAIN ---------- */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1C1A5E;
+  }
+
+  .main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+/* ---------- ACRONYMS TABLE ---------- */
+
+
+
+  #acronym-meanings-title {
+    text-align: center;
+    color: white;
+  }
+
+  #meaning-th {
+    background-color: #071D49;
+    border-radius: 0%;
+    color: white;
+  }
+
+  #acronym-th {
+    background-color: #071D49;
+    border-radius: 0%;
+        color: white;
+
+  }
+
+  .acronym-meaning-table {
+    margin: 20px 2%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+  }
+
+  .acronym-meaning-table th, .acronym-meaning-table td {
+    padding: 10px 20px;
+    text-align: left;
+  }
+
+  .acronym-meaning-table th {
+    background-color: #f2f2f2;
+    font-weight:bold;
+    font-size: 1.5rem;
+    border-radius: 0%;
+  }
+
+  .acronym-meaning-table tr:nth-child(even) {
+    background-color: #D9D9D9;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+  }
+
+  .acronym-meaning-table tr:nth-child(odd) {
+    background-color: #01DEB2;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  
+
+  .acronym-meaning-table th:last-child, .acronym-meaning-table td:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .acronym-meaning-table th, .acronym-meaning-table td {
+    padding: 10px 20px;
+    text-align: left;
+    border-right: 5px solid #1C1A5E;
+  }
+  
+  .acronym-meaning-table th:last-child, .acronym-meaning-table td:last-child {
+    border-right: none;
+  }
+
+  .acronym-meaning-table th, .acronym-meaning-table td {
+    padding: 10px 20px;
+    border-right: 5px solid #1C1A5E;
+    border-bottom: 5px solid #1C1A5E;
+  }
+  
+  .acronym-meaning-table th:last-child, .acronym-meaning-table td:last-child {
+    border-right: none;
+  }
+  
+  .acronym-meaning-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .acronym-meaning-table tr td:first-child {
+    text-align: center;
+  }
+  
+  .acronym-meaning-table tr td:last-child {
+    text-align: left;
+  }
+
+  #like-button {
+      background-color: #EFEFEF;
+  border: none;
+  padding: 10px 15px;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 4px;
+  }
+  
+  .table-container {
+    margin-left: 10%;
+    grid-column: 1;
+    height: 650px;
+    width: 900px;
+    overflow-y: scroll;
+  }
+  
+  .table-container table {
+    margin: 0;
+  }
+  
+  .table-container table {
+    width: 100%;
+  }
+  
+
+  /* ---------- FILTER BY SECTION ---------- */
+
+
+  #filter-by-text {
+    color: white;
+  }
+
+  .filter-section {
+    margin-left: 5%;
+    display: flex;
+    margin-bottom: 2%;
+    justify-content: space-around;
+    width: 500px;
+  }
+
+  .select-option {
+    margin-top: 3%;
+    height: 20px;
+    width: 100px;
+  }
+
+  #all-button:hover {
+    cursor: pointer;
+    background-color: #01DEB2;
+    border: 1px solid black;
+  }
+
+ 
+
+  
+/* ---------- DESCRIPTION SECTION ---------- */
+
+
+
+  .description {
+    height: 650px;
+    width: 400px;
+    background-color: #071D49;
+    grid-column: 2 /3; /*here*/
+    margin-left: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #description-title {
+    color: white;
+    text-align: center;
+    margin-bottom: 10%;
+  }
+
+  #meaning-of-chosen-acronym {
+    color: white;
+    text-align: center;
+  }
+
+  .description-text-div {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  #description-text {
+    color: white;
+    line-height: 1.7rem;
+    font-size: 1.5rem;
+    padding: 5%;
+    margin-bottom: 20%;
+  }
+
+/* ---------- DESCRIPTION BOTTOM BAR ---------- */
+
+
+label {
+  font-size: 5em;
+  color: red;
+}
+
+.bottom-button {
+  cursor: pointer;
+  border: none;
+}
+
+.edit-button {
+  font-size: 1.5rem;
+}
+
+.next-button {
+  background-color: #EFEFEF;
+  border: none;
+  color: black;
+  padding: 10px 15px;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.bottom-bar {
+  width: 100%;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heart-button {
+  width: 40px;
+  height: 40px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+}
+
+.acronym-cell.highlighted,
+.acronym-cell.highlighted + td {
+    background-color: #0A70DC; /* Bright pink highlight color */
+}
+
+
+
+
+/* ---------- MEDIA QUERIES ---------- */
+
+
+
+@media screen and (max-width: 1500px) {
+  .table-container {
+    width: 800px;
+    height: 550px;
+  }
+
+  .description {
+    height: 550px;
+    width: 400px;
+  }
+}
+
+
+@media screen and (max-width: 1390px) {
+  .table-container {
+    width: 700px;
+  }
+}
+
+@media screen and (max-width: 1283px) {
+  .table-container {
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 1185px) {
+  .table-container {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 1075px) {
+  .table-container {
+    width: 400px;
+  }
+  .description {
+    margin-left: 20%;
+}
+}
+
+@media screen and (max-width: 985px) {
+  .table-container {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 930px) {
+ 
+  .main-container {
+    grid-template-columns: 1fr 1fr; 
+  }
+
+  .description {
+    height: 550px;
+    width: 400px;
+    background-color: #071D49;
+    margin-left: 0%;
+    grid-column: 2 /3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+}
+
+@media screen and (max-width: 880px) {
+ 
+  .main-container {
+    grid-template-columns: 1fr 1fr; 
+  }
+
+  .description {
+    height: 550px;
+    width: 350px;
+    background-color: #071D49;
+    margin-left: 0%;
+    grid-column: 2 /3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+}
+
+@media screen and (max-width: 830px) {
+
+  #meaning-of-chosen-acronym {
+    text-align: center;
+    font-size: medium;
+  }
+
+  #description-text {
+    font-size: 0.9rem;
+  }
+
+  .description {
+    height: 500px;
+    width: 300px;
+    background-color: #071D49;
+    margin-left: 0%;
+    grid-column: 2 /3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.table-container {
+  height: 535px;
+  width: 300px;
+}
+
+}
+
+
+
+@media screen and (max-width: 700px) {
+  .main-container {
+    grid-template-columns: 1fr; 
+  }
+
+  .description {
+    grid-column: 1;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .table-container {
+    margin-left: 0;
+    width: 100%; 
+  }
+
+  .filter-section {
+    margin-left: 0%;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .select-option {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto; 
+  }
+
+  #filter-by-text {
+    text-align: center;
+  }
+}
+
+    </style>
+</head>
+<body>
+
+    <h1 id="acronym-meanings-title">Acronym Meanings</h1>
+
+      <div class="filter-section">
+        <p id="filter-by-text">Filter by:</p>
+        <select class="select-option" name="category">
+          <option value="" disabled selected>
+            Category
+          </option>
+          <option value="Business">Business</option>
+          <option value="Tech">Tech</option>
+          <option value="favourites">Favourites</option>
+        </select>
+        <select class="select-option" name="Length">
+          <option value="" disabled selected>
+            Length
+          </option>
+          <option value="3-letter">3-letter</option>
+          <option value="4-letter">4-letter</option>
+        </select>
+        <button class="select-option" id="all-button">
+          All
+        </button>
+      </div>
+
+      <div class="main-container">
+        <div class="table-container">
+          <table class="acronym-meaning-table">
+            <thead>
+                <tr>
+                  <th>Acronym</th>
+                  <th>Meaning</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="acronym : ${acronyms}" th:attr="data-acronym-id=${acronym.id}">
+                        <td class="acronym-cell" id="the-acronym-cell" th:text="${acronym.acronym}"></td>
+                        <td class="acronym-cell" id="the-meaning-cell" th:text="${acronym.meaning}"></td>
+                    </tr>
+                    
+                </tbody>
+          </table>
+        </div>
+
+        <div class="description">
+          <div class="titles-container">
+            <h2 id="description-title">Description</h2>
+            <h3 id="meaning-of-chosen-acronym">Annual Business Review</h3>
+          </div>
+          <div class="description-text-div">
+            <p id="description-text">
+              Lorem 
+            </p>
+          </div>
+
+          <div class="bottom-bar">
+            <button class="edit-button bottom-button">🖊️</button>
+            <button id="like-button">❤️</button>
+            <button class="next-button bottom-button">⮕</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+
+    const theAcronymCell = document.getElementById('the-acronym-cell');
+    const theMeaningCell = document.getElementById('the-meaning-cell');
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    console.log("called add event listener on domContentLoaded");
+    var cells = document.getElementsByClassName('acronym-cell');
+
+    Array.from(cells).forEach(function (cell) {
+        cell.addEventListener('click', function () {
+            var clickedAcronymId = cell.parentElement.getAttribute('data-acronym-id');
+            console.log("clickedAcronymId --->", clickedAcronymId);
+            updatedDescription(clickedAcronymId);
+
+            // Remove the highlight class from all cells
+            var allCells = document.getElementsByClassName('highlighted');
+            Array.from(allCells).forEach(function (otherCell) {
+                otherCell.classList.remove('highlighted');
+            });
+
+            // Add the highlight class to the clicked cell and its corresponding meaning cell
+            cell.classList.add('highlighted');
+            var meaningCell = cell.parentElement.querySelector('.meaning-cell');
+            if (meaningCell) {
+                console.log("Should add highlighted class to meaning")
+                meaningCell.classList.add('highlighted');
+            }
+        });
+    });
+
+    // Check if there are cells (acronyms) in the table
+    if (cells.length > 0) {
+        // Trigger a click event on the first cell to display its details and highlight it
+        cells[0].click();
+    }
+});
+
+function updatedDescription(acronymId) {
+    console.log("Called updatedDescription method");
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log("inside of xhr if statement");
+                var response = JSON.parse(xhr.responseText);
+
+                console.log("response  ---> ", response);
+
+                document.getElementById('description-text').innerText = response.description;
+                document.getElementById('meaning-of-chosen-acronym').innerText = response.meaning;
+            } else {
+                console.error("Error:", xhr.status);
+            }
+        }
+    };
+
+    xhr.open('POST', '/getAcronymMeaningAndDescriptionById', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    var requestBody = JSON.stringify({ "id": acronymId });
+    console.log("request body -->", requestBody);
+    xhr.send(requestBody);
+}
+
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
