@@ -560,6 +560,8 @@ const allButton = document.getElementById('all-button')
       resetTable();
       highlightFirstAcronym();
     })
+  
+    attachRowEventListeners();
 
 function updateTableContent(acronyms) {
     console.log("called updateTableContent")
@@ -600,6 +602,21 @@ function updateTableContent(acronyms) {
 
 function resetTable() {
   updateTableContent(originalAcronyms);
+  attachRowEventListeners();
+}
+
+function attachRowEventListeners() {
+  const rows = document.querySelectorAll('#acronym-table tbody tr');
+  rows.forEach(row => {
+    row.addEventListener('click', function () {
+      rows.forEach(row => {
+        row.classList.remove('highlighted');
+      });
+      row.classList.add('highlighted');
+      const clickedAcronymId = row.getAttribute('data-acronym-id');
+      updatedDescription(clickedAcronymId);
+    });
+  });
 }
 
 
