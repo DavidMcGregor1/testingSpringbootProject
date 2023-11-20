@@ -601,9 +601,23 @@ function updateTableContent(acronyms) {
 }
 
 function resetTable() {
+  // Reset the category dropdown to its placeholder value
+  var categoryDropdown = document.getElementById('categoryDropdown');
+  if (categoryDropdown) {
+    categoryDropdown.selectedIndex = 0;
+  }
+
+  // Reset the length dropdown to its placeholder value
+  var lengthDropdown = document.getElementById('lengthDropdown');
+  if (lengthDropdown) {
+    lengthDropdown.selectedIndex = 0;
+  }
+
   updateTableContent(originalAcronyms);
+  // Reattach click event listeners to the rows after resetting the table
   attachRowEventListeners();
 }
+
 
 function attachRowEventListeners() {
   const rows = document.querySelectorAll('#acronym-table tbody tr');
