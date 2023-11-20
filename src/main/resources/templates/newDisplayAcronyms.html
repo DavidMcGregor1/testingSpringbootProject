@@ -558,6 +558,7 @@ const allButton = document.getElementById('all-button')
     allButton.addEventListener('click', () => {
       console.log("clicked on all button")
       resetTable();
+      highlightFirstAcronym();
     })
 
 function updateTableContent(acronyms) {
@@ -592,6 +593,9 @@ function updateTableContent(acronyms) {
         // Append the row to the table body
         tbody.appendChild(row);
     });
+
+    highlightFirstAcronym();
+
 }
 
 function resetTable() {
@@ -611,6 +615,20 @@ function updateTableWithCategory(category) {
 
                 // Update the table with the new data
                 updateTableContent(acronyms);
+
+                const rows = document.querySelectorAll('#acronym-table tbody tr');
+                rows.forEach(row => {
+                  row.addEventListener('click', function () {
+                    rows.forEach(row => {
+                      row.classList.remove('highlighted')
+                    })
+                    row.classList.add('highlighted');
+                    const clickedAcronymId = row.getAttribute('data-acronym-id');
+                    updatedDescription(clickedAcronymId);
+                  })
+                })
+
+
             } else {
                 console.error("Error:", xhr.status);
             }
@@ -619,6 +637,22 @@ function updateTableWithCategory(category) {
 
     xhr.open('GET', '/acronymsByCategory?category=' + category, true);
     xhr.send();
+}
+
+function highlightFirstAcronym() {
+    // Get the first row
+    const firstRow = document.querySelector('#acronym-table tbody tr:first-child');
+
+    // Highlight the first row
+    if (firstRow) {
+        firstRow.classList.add('highlighted');
+
+        // Get the acronym ID of the first row
+        const firstRowAcronymId = firstRow.getAttribute('data-acronym-id');
+
+        // Call the function to update the description for the first row
+        updatedDescription(firstRowAcronymId);
+    }
 }
 
 
