@@ -11,4 +11,6 @@ public interface AcronymsRepository extends JpaRepository<Acronyms, Integer> {
 
     Optional<Acronyms> findByCategory(String category);
     List<Acronyms> findByCategoryIgnoreCase(String category);
+    List<Acronyms> findByLength(int length);
+
 }

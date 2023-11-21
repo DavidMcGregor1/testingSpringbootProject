@@ -438,12 +438,12 @@ label {
           <option value="Business">Business</option>
           <option value="Tech">Tech</option>
         </select>
-        <select class="select-option" name="Length">
+        <select class="select-option" name="Length" id="lengthDropdown">
           <option value="" disabled selected>
             Length
           </option>
-          <option value="3-letter">3-letter</option>
-          <option value="4-letter">4-letter</option>
+          <option value="3">3-letter</option>
+          <option value="4">4-letter</option>
         </select>
         <button class="select-option" id="all-button">
           All
@@ -494,7 +494,12 @@ label {
 var originalAcronyms;
 
 
+
+
 document.addEventListener('DOMContentLoaded', function () {
+
+  // think issue is it is taking the value of the length drop down which is a string "3-letter", needs to just be the integer
+  
     // Get the first row
     const firstRow = document.querySelector('#acronym-table tbody tr:first-child');
 
@@ -541,6 +546,13 @@ document.addEventListener('DOMContentLoaded', function () {
     categoryDropdown.addEventListener('change', function () {
       const selectedCategory = categoryDropdown.value;
       updateTableWithCategory(selectedCategory)
+    })
+
+    const lengthDropdown = document.getElementById('lengthDropdown')
+    lengthDropdown.addEventListener('change', function () {
+      const selectedLength = lengthDropdown.value;
+      console.log("Selected: " + selectedLength)
+      updateTableWithLength(selectedLength)
     })
 
     originalAcronyms = Array.from(document.querySelectorAll('#acronym-table tbody tr')).map(row => {
@@ -647,17 +659,8 @@ function updateTableWithCategory(category) {
                 // Update the table with the new data
                 updateTableContent(acronyms);
 
-                const rows = document.querySelectorAll('#acronym-table tbody tr');
-                rows.forEach(row => {
-                  row.addEventListener('click', function () {
-                    rows.forEach(row => {
-                      row.classList.remove('highlighted')
-                    })
-                    row.classList.add('highlighted');
-                    const clickedAcronymId = row.getAttribute('data-acronym-id');
-                    updatedDescription(clickedAcronymId);
-                  })
-                })
+                attachRowEventListeners();
+
 
 
             } else {
@@ -667,6 +670,31 @@ function updateTableWithCategory(category) {
     };
 
     xhr.open('GET', '/acronymsByCategory?category=' + category, true);
+    xhr.send();
+}
+
+function updateTableWithLength(length) {
+    console.log("called updateTableWithLength method")
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var acronyms = JSON.parse(xhr.responseText);
+
+                // Update the table with the new data
+                updateTableContent(acronyms);
+                attachRowEventListeners();
+
+              
+
+            } else {
+                console.error("Error:", xhr.status);
+            }
+        }
+    };
+
+    xhr.open('GET', '/acronymsByLength?length=' + length, true);
     xhr.send();
 }
 

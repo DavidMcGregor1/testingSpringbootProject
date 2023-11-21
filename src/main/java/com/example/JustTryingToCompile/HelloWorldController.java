@@ -51,6 +51,16 @@ public class HelloWorldController {
         return acronyms;
     }
 
+    @GetMapping(path = "/acronymsByLength")
+    @ResponseBody
+    public List<Acronyms> getAcronymsByLength(@RequestParam(name = "length") int length) {
+        System.out.println("Hit acronymsByLength API");
+
+        // Perform a case-insensitive search by category
+        List<Acronyms> acronyms = repositoryAcronyms.findByLength(length);
+
+        return acronyms;
+    }
 
 
 

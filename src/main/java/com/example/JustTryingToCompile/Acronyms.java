@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class Acronyms {
     public int id;
     public String category;
+    public int length;
     public String acronym;
     public String meaning;
     public String falseAnswer1;
@@ -20,8 +21,9 @@ public class Acronyms {
 
     }
 
-    public Acronyms(String category, String acronym, String meaning, String falseAnswer1, String falseAnswer2, String falseAnswer3, String description) {
+    public Acronyms(String category, int length, String acronym, String meaning, String falseAnswer1, String falseAnswer2, String falseAnswer3, String description) {
         this.category = category;
+        this.length = length;
         this.acronym = acronym;
         this.meaning = meaning;
         this.falseAnswer1 = falseAnswer1;
@@ -47,6 +49,15 @@ public class Acronyms {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Column(name = "Length")
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
     }
 
     @Column(name = "Acronym")
