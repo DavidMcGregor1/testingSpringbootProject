@@ -432,14 +432,14 @@ label {
       <div class="filter-section">
         <p id="filter-by-text">Filter by:</p>
         <select class="select-option" name="category" id="categoryDropdown">
-          <option value="" disabled selected>
+          <option value="all" disabled selected>
             Category
           </option>
           <option value="Business">Business</option>
           <option value="Tech">Tech</option>
         </select>
         <select class="select-option" name="Length" id="lengthDropdown">
-          <option value="" disabled selected>
+          <option value="-1" disabled selected>
             Length
           </option>
           <option value="3">3-letter</option>
@@ -545,14 +545,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const categoryDropdown = document.getElementById('categoryDropdown')
     categoryDropdown.addEventListener('change', function () {
       const selectedCategory = categoryDropdown.value;
-      updateTableWithCategory(selectedCategory)
+      const selectedLength = lengthDropdown.value;
+      // updateTableWithCategory(selectedCategory)
+      updateTableWithCategoryAndLength(selectedCategory, selectedLength);
     })
 
     const lengthDropdown = document.getElementById('lengthDropdown')
     lengthDropdown.addEventListener('change', function () {
       const selectedLength = lengthDropdown.value;
+      const selectedCategory = categoryDropdown.value;
       console.log("Selected: " + selectedLength)
-      updateTableWithLength(selectedLength)
+      // updateTableWithLength(selectedLength)
+      updateTableWithCategoryAndLength(selectedCategory, selectedLength);
     })
 
     originalAcronyms = Array.from(document.querySelectorAll('#acronym-table tbody tr')).map(row => {
@@ -697,6 +701,40 @@ function updateTableWithLength(length) {
     xhr.open('GET', '/acronymsByLength?length=' + length, true);
     xhr.send();
 }
+
+
+function updateTableWithCategoryAndLength(category, length) {
+    console.log("called updateTableWithCategoryAndLength method")
+    var xhr = new XMLHttpRequest();
+    console.log("xhr: " + xhr)
+    console.log("xhr.response" + xhr.responseText)
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            console.log("xhr.readyState = 4")
+            if (xhr.status === 200) {
+              console.log("xhr.status = 200")
+                var acronyms = JSON.parse(xhr.responseText);
+                console.log("xhr.response" + xhr.responseText)
+
+
+                // Update the table with the new data
+                updateTableContent(acronyms);
+
+                attachRowEventListeners();
+
+            } else {
+                console.error("Error:", xhr.status);
+            }
+        }
+    };
+
+    // Modify the URL to include both category and length
+    console.log('URL:', '/acronymsByCategoryAndLength?category=' + category + '&length=' + length);
+    xhr.open('GET', '/acronymsByCategoryAndLength?category=' + category + '&length=' + length, true);
+    xhr.send();
+}
+
 
 function highlightFirstAcronym() {
     // Get the first row

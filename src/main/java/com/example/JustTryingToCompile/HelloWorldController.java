@@ -62,6 +62,39 @@ public class HelloWorldController {
         return acronyms;
     }
 
+    @GetMapping(path = "/acronymsByCategoryAndLength")
+    @ResponseBody
+    public List<Acronyms> getAcronymsByCategoryAndLength(
+            @RequestParam(name = "category") String category,
+            @RequestParam(name = "length") int length) {
+        System.out.println("Hit acronymsByCategoryAndLength API");
+
+        List<Acronyms> acronyms;
+
+        if(length == -1) {
+            if(category.equals("all")) {
+                //get everything
+                acronyms = repositoryAcronyms.findAll();
+            } else {
+                //length is -1 and category is specified - get by category
+                acronyms = repositoryAcronyms.findByCategoryIgnoreCase(category);
+
+            }
+        } else {
+            if(category.equals("all")) {
+                // get by length and ignore category
+                acronyms = repositoryAcronyms.findByLength(length);
+            } else {
+                //get by length and category
+                acronyms = repositoryAcronyms.findByCategoryIgnoreCaseAndLength(category, length);
+            }
+        }
+
+
+
+        return acronyms;
+    }
+
 
 
     @ResponseStatus(value = HttpStatus.OK)
