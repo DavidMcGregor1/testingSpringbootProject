@@ -150,7 +150,7 @@ body {
     display: flex;
     margin-bottom: 2%;
     justify-content: space-around;
-    width: 500px;
+    width: 800px;
   }
 
   .select-option {
@@ -159,11 +159,59 @@ body {
     width: 100px;
   }
 
+  .filter-option-container {
+    display: flex;
+    list-style: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 190px;
+  }
+
   #all-button:hover {
     cursor: pointer;
     background-color: #01DEB2;
     border: 1px solid black;
   }
+
+  .search-container {
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  max-width: 190px;
+}
+
+.search-input {
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  width: 100%;
+  padding-left: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #EFEFEF;
+  color: #0d0c22;
+  transition: .3s ease;
+}
+
+.search-input::placeholder {
+  color: #777;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  fill: #777;
+  width: 1rem;
+  height: 1rem;
+}
+
+
+
+
+
+
 
  
 
@@ -432,23 +480,48 @@ label {
 
       <div class="filter-section">
         <p id="filter-by-text">Filter by:</p>
-        <select class="select-option" name="category" id="categoryDropdown">
-          <option value="all" disabled selected>
-            Category
-          </option>
-          <option value="Business">Business</option>
-          <option value="Tech">Tech</option>
-        </select>
-        <select class="select-option" name="Length" id="lengthDropdown">
-          <option value="-1" disabled selected>
-            Length
-          </option>
-          <option value="3">3-letter</option>
-          <option value="4">4-letter</option>
-        </select>
-        <button class="select-option" id="all-button">
-          All
-        </button>
+
+        <div class="filter-option-container">
+          <select class="select-option" name="category" id="categoryDropdown">
+            <option value="all" disabled selected>
+              Category
+            </option>
+            <option value="Business">Business</option>
+            <option value="Tech">Tech</option>
+          </select>
+        </div>
+
+        
+
+        <div class="filter-option-container">
+          <select class="select-option" name="Length" id="lengthDropdown">
+            <option value="-1" disabled selected>
+              Length
+            </option>
+            <option value="3">3-letter</option>
+            <option value="4">4-letter</option>
+          </select>
+        </div>
+
+        
+
+        <div class="filter-option-container">
+          <button class="select-option" id="all-button">
+            All
+          </button>
+        </div>
+
+        
+
+        <div class="search-container">
+          <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <g>
+                  <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+              </g>
+          </svg>
+          <input placeholder="Search" onkeyup="filterTableBySearch()" type="search" class="search-input" id="search-input-id">
+      </div>
+
       </div>
 
       <div class="main-container">
@@ -493,12 +566,59 @@ label {
     <script>
 
 var originalAcronyms;
+var searchInput = document.getElementById("search-input-id")
 
+function filterTableBySearch() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search-input-id");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("acronym-table");
+  tr = table.getElementsByTagName("tr");
+
+  if (filter === "") {
+    // If the search input is empty, reset the table
+    resetTable();
+    return;
+  }
+
+  for (i = 0; i < tr.length; i++) {
+    var matchFound = false;
+    var tdAcronym = tr[i].getElementsByTagName("td")[0];
+    var tdMeaning = tr[i].getElementsByTagName("td")[1];
+
+    if (tdAcronym && tdMeaning) {
+      var txtValueAcronym = tdAcronym.textContent || tdAcronym.innerText;
+      var txtValueMeaning = tdMeaning.textContent || tdMeaning.innerText;
+
+      if (
+        txtValueAcronym.toUpperCase().indexOf(filter) > -1 ||
+        txtValueMeaning.toUpperCase().indexOf(filter) > -1
+      ) {
+        matchFound = true;
+      }
+    }
+
+    if (matchFound) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+}
 
 
 
 document.addEventListener('DOMContentLoaded', function () {
   
+
+    // Add event listener for the "search" event
+    searchInput.addEventListener("search", function () {
+    if (searchInput.value === "") {
+      // If the search input is cleared using 'x', reset the table
+      resetTable();
+    }
+  });
+
   // First row logic
     const firstRow = document.querySelector('#acronym-table tbody tr:first-child');
     firstRow.classList.add('highlighted');
