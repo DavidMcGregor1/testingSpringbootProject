@@ -638,9 +638,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   // Next button logic  
+
+  let currentIndex = 0;
     const nextButton = document.getElementById('next-button');
     nextButton.addEventListener('click', () => {
       console.log("Clicked next button");
+      currentIndex++;
+      const rows = document.querySelectorAll('#acronym-table tbody tr');
+
+      if (currentIndex >= rows.length) {
+        currentIndex = 0;
+      }
+
+      rows.forEach(row => {
+        row.classList.remove('highlighted');
+      });
+
+      rows[currentIndex].classList.add('highlighted');
+
+      const highlightedAcronymId = rows[currentIndex].getAttribute('data-acronym-id');
+      updatedDescription(highlightedAcronymId)
+
     })
 
   // Category dropdown logic  
