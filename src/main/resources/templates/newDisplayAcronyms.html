@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Display Acronyms</title>
-    <link rel="stylesheet" type="text/css" href="./mainPageStyle.css">
+    <link rel="stylesheet" type="text/css" href="../mainPageStyle.css">
 <style>
  /* ---------- MAIN ---------- */
 
@@ -126,6 +126,7 @@ body {
     height: 650px;
     width: 900px;
     overflow-y: scroll;
+    overflow-x: hidden;
   }
   
   .table-container table {
@@ -483,7 +484,7 @@ label {
           <div class="bottom-bar">
             <button class="edit-button bottom-button">🖊️</button>
             <button id="like-button">❤️</button>
-            <button class="next-button bottom-button">⮕</button>
+            <button class="next-button bottom-button" id="next-button">⮕</button>
           </div>
         </div>
       </div>
@@ -497,50 +498,32 @@ var originalAcronyms;
 
 
 document.addEventListener('DOMContentLoaded', function () {
-
-  // think issue is it is taking the value of the length drop down which is a string "3-letter", needs to just be the integer
   
-    // Get the first row
+  // First row logic
     const firstRow = document.querySelector('#acronym-table tbody tr:first-child');
-
-    // Highlight the first row
     firstRow.classList.add('highlighted');
 
-    // Get the acronym ID of the first row
     const firstRowAcronymId = firstRow.getAttribute('data-acronym-id');
-
-    // Call the function to update the description for the first row
     updatedDescription(firstRowAcronymId);
+    attachRowEventListeners();
 
-    // Add click event listener for rows
-    const rows = document.querySelectorAll('#acronym-table tbody tr');
-    rows.forEach(row => {
-        row.addEventListener('click', function () {
-            // Remove highlighting from all rows
-            rows.forEach(row => {
-                row.classList.remove('highlighted');
-            });
-
-            // Highlight the clicked row
-            row.classList.add('highlighted');
-
-            // Get the acronym ID of the clicked row
-            const clickedAcronymId = row.getAttribute('data-acronym-id');
-
-            // Call the function to update the description for the clicked row
-            updatedDescription(clickedAcronymId);
-        });
-    });
-
-    // Add click event listener for cells
+  // Update description box with clicked acronym  
     const cells = document.getElementsByClassName('acronym-cell');
     Array.from(cells).forEach(function (cell) {
         cell.addEventListener('click', function () {
-            console.log("Clicked on whatever a cell is");
             var clickedAcronymId = cell.parentElement.getAttribute('data-acronym-id');
             updatedDescription(clickedAcronymId);
         });
     });
+
+
+  // Next button logic  
+    const nextButton = document.getElementById('next-button');
+    nextButton.addEventListener('click', () => {
+      console.log("Clicked next button");
+    })
+
+  // Category dropdown logic  
 
     const categoryDropdown = document.getElementById('categoryDropdown')
     categoryDropdown.addEventListener('change', function () {
@@ -550,6 +533,7 @@ document.addEventListener('DOMContentLoaded', function () {
       updateTableWithCategoryAndLength(selectedCategory, selectedLength);
     })
 
+  // Length dropdown logic  
     const lengthDropdown = document.getElementById('lengthDropdown')
     lengthDropdown.addEventListener('change', function () {
       const selectedLength = lengthDropdown.value;
@@ -559,6 +543,15 @@ document.addEventListener('DOMContentLoaded', function () {
       updateTableWithCategoryAndLength(selectedCategory, selectedLength);
     })
 
+  // All button logic  
+    const allButton = document.getElementById('all-button')
+    allButton.addEventListener('click', () => {
+      console.log("clicked on all button")
+      resetTable();
+      highlightFirstAcronym();
+    })
+
+  // Original Acronym list logic  
     originalAcronyms = Array.from(document.querySelectorAll('#acronym-table tbody tr')).map(row => {
       return {
         id: row.getAttribute('data-acronym-id'),
@@ -569,46 +562,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-
-const allButton = document.getElementById('all-button')
-    allButton.addEventListener('click', () => {
-      console.log("clicked on all button")
-      resetTable();
-      highlightFirstAcronym();
-    })
-  
     attachRowEventListeners();
 
+  // Update table content logic
 function updateTableContent(acronyms) {
     console.log("called updateTableContent")
-    // Get the table body element
     var tbody = document.querySelector('#acronym-table tbody');
-
-    // Clear existing rows from the table
     tbody.innerHTML = '';
 
 
     acronyms = acronyms || originalAcronyms;
 
-    // Iterate through the acronyms and add rows to the table
     acronyms.forEach(function (acronym) {
         var row = document.createElement('tr');
 
-        // Set the data-acronym-id attribute for each row
         row.setAttribute('data-acronym-id', acronym.id);
 
-        // Create cells for acronym and meaning
         var acronymCell = document.createElement('td');
         acronymCell.textContent = acronym.acronym;
 
         var meaningCell = document.createElement('td');
         meaningCell.textContent = acronym.meaning;
 
-        // Append cells to the row
         row.appendChild(acronymCell);
         row.appendChild(meaningCell);
-
-        // Append the row to the table body
         tbody.appendChild(row);
     });
 
@@ -616,6 +593,7 @@ function updateTableContent(acronyms) {
 
 }
 
+  // Reset table logic
 function resetTable() {
   // Reset the category dropdown to its placeholder value
   var categoryDropdown = document.getElementById('categoryDropdown');
@@ -630,11 +608,11 @@ function resetTable() {
   }
 
   updateTableContent(originalAcronyms);
-  // Reattach click event listeners to the rows after resetting the table
   attachRowEventListeners();
 }
 
 
+  // Attach event listeners to the rows logic
 function attachRowEventListeners() {
   const rows = document.querySelectorAll('#acronym-table tbody tr');
   rows.forEach(row => {
@@ -650,59 +628,7 @@ function attachRowEventListeners() {
 }
 
 
-
-function updateTableWithCategory(category) {
-    console.log("called updateTableWithCategory method")
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                var acronyms = JSON.parse(xhr.responseText);
-
-                // Update the table with the new data
-                updateTableContent(acronyms);
-
-                attachRowEventListeners();
-
-
-
-            } else {
-                console.error("Error:", xhr.status);
-            }
-        }
-    };
-
-    xhr.open('GET', '/acronymsByCategory?category=' + category, true);
-    xhr.send();
-}
-
-function updateTableWithLength(length) {
-    console.log("called updateTableWithLength method")
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                var acronyms = JSON.parse(xhr.responseText);
-
-                // Update the table with the new data
-                updateTableContent(acronyms);
-                attachRowEventListeners();
-
-              
-
-            } else {
-                console.error("Error:", xhr.status);
-            }
-        }
-    };
-
-    xhr.open('GET', '/acronymsByLength?length=' + length, true);
-    xhr.send();
-}
-
-
+  // update table with chosen category and length
 function updateTableWithCategoryAndLength(category, length) {
     console.log("called updateTableWithCategoryAndLength method")
     var xhr = new XMLHttpRequest();
@@ -729,31 +655,26 @@ function updateTableWithCategoryAndLength(category, length) {
         }
     };
 
-    // Modify the URL to include both category and length
     console.log('URL:', '/acronymsByCategoryAndLength?category=' + category + '&length=' + length);
     xhr.open('GET', '/acronymsByCategoryAndLength?category=' + category + '&length=' + length, true);
     xhr.send();
 }
 
-
+  // highlight the first acronym in the table logic
 function highlightFirstAcronym() {
-    // Get the first row
     const firstRow = document.querySelector('#acronym-table tbody tr:first-child');
 
-    // Highlight the first row
     if (firstRow) {
         firstRow.classList.add('highlighted');
 
-        // Get the acronym ID of the first row
         const firstRowAcronymId = firstRow.getAttribute('data-acronym-id');
 
-        // Call the function to update the description for the first row
         updatedDescription(firstRowAcronymId);
     }
 }
 
 
-
+  // update the description box with the clicked acornym id
 function updatedDescription(acronymId) {
     console.log("called updatedDescription method")
     var xhr = new XMLHttpRequest();
