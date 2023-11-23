@@ -29,7 +29,14 @@ function editDescription() {
   );
   const meaningOfChosenAcronym = highlightedRow.querySelector(
     ".acronym-cell:last-child"
-  ).textContent;
+  ).innerText;
+
+  const textArea = document.getElementById("newDescription");
+  textArea.setAttribute(
+    "placeholder",
+    "Enter a short description for " + meaningOfChosenAcronym + "..."
+  );
+  textArea.style.fontSize = "1.5rem";
 
   document.getElementById("edit-meaning-of-chosen-acronym").innerText =
     meaningOfChosenAcronym;
@@ -48,6 +55,11 @@ function submitDescription() {
     "#acronym-table tbody tr.highlighted"
   );
   const acronymId = highlightedRow.getAttribute("data-acronym-id");
+
+  if (newDescription.length < 100 || newDescription.length > 350) {
+    alert("Description must be between 100 and 350 characters");
+    return;
+  }
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
