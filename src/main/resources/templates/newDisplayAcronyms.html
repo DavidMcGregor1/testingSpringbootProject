@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th=http://www.thymeleaf.org>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Display Acronyms</title>
-    <link rel="stylesheet" type="text/css" href="../mainPageStyle.css">
 <style>
+
  /* ---------- MAIN ---------- */
 
-body {
+ body {
     font-family: Arial, sans-serif;
     background-color: #1C1A5E;
   }
@@ -19,8 +19,6 @@ body {
   }
 
 /* ---------- ACRONYMS TABLE ---------- */
-
-
 
   #acronym-meanings-title {
     text-align: center;
@@ -140,7 +138,6 @@ body {
 
   /* ---------- FILTER BY SECTION ---------- */
 
-
   #filter-by-text {
     color: white;
   }
@@ -211,17 +208,13 @@ body {
 
 
 
-
-
  
 
   
 /* ---------- DESCRIPTION SECTION ---------- */
 
-
-
-  .description {
-    height: 650px;
+  #description {
+    height: 600px;
     width: 400px;
     background-color: #071D49;
     grid-column: 2 /3; /*here*/
@@ -256,7 +249,6 @@ body {
   }
 
 /* ---------- DESCRIPTION BOTTOM BAR ---------- */
-
 
 label {
   font-size: 5em;
@@ -318,11 +310,7 @@ label {
 
 
 
-
-
 /* ---------- MEDIA QUERIES ---------- */
-
-
 
 @media screen and (max-width: 1500px) {
   .table-container {
@@ -335,7 +323,6 @@ label {
     width: 400px;
   }
 }
-
 
 @media screen and (max-width: 1390px) {
   .table-container {
@@ -435,8 +422,6 @@ label {
 
 }
 
-
-
 @media screen and (max-width: 700px) {
   .main-container {
     grid-template-columns: 1fr; 
@@ -471,6 +456,118 @@ label {
   }
 }
 
+/* NEWWWWWW */
+
+/* ---------- DESCRIPTION SECTION ---------- */
+
+.noneClass {
+  display: none !important;
+}
+
+.new-description-text-div {
+  display: flex;
+  justify-content: center;
+  height: 50%;
+}
+
+#newDescription {
+  width: 90%;
+  height: 90%;
+}
+
+#edit-description {
+ display: none;
+}
+
+#edit-description {
+  height: 650px;
+  width: 400px;
+  background-color: #071D49;
+  grid-column: 2 /3;
+  margin-left: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#description-title {
+  color: white;
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+#meaning-of-chosen-acronym {
+  color: white;
+  text-align: center;
+}
+
+#edit-meaning-of-chosen-acronym {
+  color: white;
+  text-align: center;
+}
+
+.description-text-div {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+#description-text {
+  color: white;
+  line-height: 1.7rem;
+  font-size: 1.5rem;
+  padding: 5%;
+  margin-bottom: 20%;
+}
+
+/* ---------- DESCRIPTION BOTTOM BAR ---------- */
+
+
+.bottom-button {
+cursor: pointer;
+border: none;
+}
+
+.edit-description-bottom-bar {
+  margin-bottom: 10%;
+width: 100%;
+/* background-color: #f0f0f0; */
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center;
+}
+
+#cancel-description-button {
+  width: 120px;
+  height: 50px;
+  background-color: #C63018;
+  border-radius: 40px;
+  border: none;
+  font-weight: bold;
+  color: white;
+}
+
+#submit-description-button {
+  width: 120px;
+  height: 50px;
+  background-color: #01DEB2;
+  border-radius: 40px;
+  border: none;
+  font-weight: bold;
+  }
+
+.acronym-cell.highlighted,
+.acronym-cell.highlighted + td {
+  background-color: #0A70DC; /* Bright pink highlight color */
+}
+
+.test-highlight {
+background-color: orange;
+}
+
+.highlighted {
+  background-color: #0A70DC !important; /* Bright pink highlight color */
+}
 
 </style>
 </head>
@@ -543,7 +640,7 @@ label {
           </table>
         </div>
 
-        <div class="description">
+        <div id="description">
           <div class="titles-container">
             <h2 id="description-title">Description</h2>
             <h3 id="meaning-of-chosen-acronym">Annual Business Review</h3>
@@ -555,15 +652,77 @@ label {
           </div>
 
           <div class="bottom-bar">
-            <button class="edit-button bottom-button">🖊️</button>
+            <button class="edit-button bottom-button" onclick="editDescription()">🖊️</button>
             <button id="like-button">❤️</button>
             <button class="next-button bottom-button" id="next-button">⮕</button>
           </div>
         </div>
+
+        <div id="edit-description">
+          <div class="titles-container">
+            <h2 id="description-title">Edit Description</h2>
+            <h3 id="edit-meaning-of-chosen-acronym">Annual Business Review</h3>
+          </div>
+          <div class="new-description-text-div">
+            <textarea type="text" id="newDescription" oninput="checkTextArea()"></textarea>
+          </div>
+
+          <div class="edit-description-bottom-bar">
+            <button id="cancel-description-button" onclick="cancelEdit()">Cancel</button>
+            <button id="submit-description-button">Submit</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
     <script>
+
+function checkTextArea() {
+            // Get the value of the text area
+            var textValue = document.getElementById("newDescription").value;
+
+            // Get the submit button
+            var submitButton = document.getElementById("submit-description-button");
+
+            // Show alert if the text area is empty when submitting
+            submitButton.onclick = function() {
+              console.log("Clicked submit button")
+                if (textValue.trim() === "") {
+                    alert("Text area cannot be empty");
+                    return false; // Prevent form submission
+                }
+            };
+        }
+
+const newDescriptionInput = document.getElementById('newDescription')
+document.getElementById('edit-description').classList.add('noneClass')
+
+function editDescription() {
+    console.log("Called edit description method")
+    const descriptionSection = document.getElementById('description');
+    const editDescriptionSection = document.getElementById('edit-description');
+    const highlightedRow = document.querySelector('#acronym-table tbody tr.highlighted');
+    const meaningOfChosenAcronym = highlightedRow.querySelector('.acronym-cell:last-child').textContent;
+
+    document.getElementById('edit-meaning-of-chosen-acronym').innerText = meaningOfChosenAcronym;
+    descriptionSection.classList.add('noneClass');
+    editDescriptionSection.classList.remove('noneClass');
+}
+
+
+      function cancelEdit() {
+        document.getElementById('description').classList.remove('noneClass')
+        document.getElementById('edit-description').classList.add('noneClass')
+  }
+
+      
+
+
+
+
+
+
 
 var originalAcronyms;
 var searchInput = document.getElementById("search-input-id")
@@ -606,8 +765,6 @@ function filterTableBySearch() {
   }
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
   
 
@@ -635,7 +792,6 @@ document.addEventListener('DOMContentLoaded', function () {
             updatedDescription(clickedAcronymId);
         });
     });
-
 
   // Next button logic  
 
@@ -708,7 +864,6 @@ function updateTableContent(acronyms) {
     var tbody = document.querySelector('#acronym-table tbody');
     tbody.innerHTML = '';
 
-
     acronyms = acronyms || originalAcronyms;
 
     acronyms.forEach(function (acronym) {
@@ -749,7 +904,6 @@ function resetTable() {
   attachRowEventListeners();
 }
 
-
   // Attach event listeners to the rows logic
 function attachRowEventListeners() {
   const rows = document.querySelectorAll('#acronym-table tbody tr');
@@ -765,7 +919,6 @@ function attachRowEventListeners() {
   });
 }
 
-
   // update table with chosen category and length
 function updateTableWithCategoryAndLength(category, length) {
     console.log("called updateTableWithCategoryAndLength method")
@@ -780,7 +933,6 @@ function updateTableWithCategoryAndLength(category, length) {
               console.log("xhr.status = 200")
                 var acronyms = JSON.parse(xhr.responseText);
                 console.log("xhr.response" + xhr.responseText)
-
 
                 // Update the table with the new data
                 updateTableContent(acronyms);
@@ -811,6 +963,10 @@ function highlightFirstAcronym() {
     }
 }
 
+function updateEditAcronym(aronymid) {
+  console.log("Called updateEditAcronym method")
+  
+}
 
   // update the description box with the clicked acornym id
 function updatedDescription(acronymId) {
@@ -821,7 +977,6 @@ function updatedDescription(acronymId) {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
-
 
                 document.getElementById('description-text').innerText = response.description;
                 document.getElementById('meaning-of-chosen-acronym').innerText = response.meaning;
