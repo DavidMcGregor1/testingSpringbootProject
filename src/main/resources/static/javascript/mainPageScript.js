@@ -56,8 +56,8 @@ function submitDescription() {
   );
   const acronymId = highlightedRow.getAttribute("data-acronym-id");
 
-  if (newDescription.length < 100 || newDescription.length > 350) {
-    alert("Description must be between 100 and 350 characters");
+  if (newDescription.length < 30 || newDescription.length > 350) {
+    alert("Description must be between 30 and 350 characters");
     return;
   }
 
@@ -75,12 +75,16 @@ function submitDescription() {
   xhr.open("PUT", "updateAcronymDescription", true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
+  document.getElementById("description").classList.remove("noneClass");
+  document.getElementById("edit-description").classList.add("noneClass");
+
   const requestBody = JSON.stringify({
     id: acronymId,
     newDescription: newDescription,
   });
 
   xhr.send(requestBody);
+  window.location.reload();
 }
 
 var originalAcronyms;

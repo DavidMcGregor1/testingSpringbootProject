@@ -227,7 +227,7 @@
     text-align: center;
   }
   
-  .description-text-div {
+  #description-text-div {
     padding-left: 2%;
     padding-right: 2%;
   }
@@ -292,10 +292,6 @@
     background-color: #0A70DC; /* Bright pink highlight color */
   }
   
-  .test-highlight {
-  background-color: orange;
-  }
-  
   .highlighted {
     background-color: #0A70DC !important; /* Bright pink highlight color */
   }
@@ -310,7 +306,7 @@
     height: 550px;
   }
   
-  .description {
+  #description {
     height: 550px;
     width: 400px;
   }
@@ -338,7 +334,7 @@
   .table-container {
     width: 400px;
   }
-  .description {
+  #description {
     margin-left: 20%;
   }
   }
@@ -355,11 +351,12 @@
     grid-template-columns: 1fr 1fr; 
   }
   
-  .description {
+  #description {
     height: 550px;
     width: 400px;
     background-color: #071D49;
     margin-left: 0%;
+    margin-right: 30%;
     grid-column: 2 /3;
     display: flex;
     flex-direction: column;
@@ -373,7 +370,7 @@
     grid-template-columns: 1fr 1fr; 
   }
   
-  .description {
+  #description {
     height: 550px;
     width: 350px;
     background-color: #071D49;
@@ -396,7 +393,7 @@
     font-size: 0.9rem;
   }
   
-  .description {
+  #description {
     height: 500px;
     width: 300px;
     background-color: #071D49;
@@ -419,7 +416,7 @@
     grid-template-columns: 1fr; 
   }
   
-  .description {
+  #description {
     grid-column: 1;
     width: 100%;
     margin-left: 0;
@@ -551,10 +548,6 @@
   .acronym-cell.highlighted,
   .acronym-cell.highlighted + td {
   background-color: #0A70DC; /* Bright pink highlight color */
-  }
-  
-  .test-highlight {
-  background-color: orange;
   }
   
   .highlighted {
