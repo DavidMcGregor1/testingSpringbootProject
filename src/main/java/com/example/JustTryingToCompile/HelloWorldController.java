@@ -2,6 +2,7 @@ package com.example.JustTryingToCompile;
 
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -38,6 +39,28 @@ public class HelloWorldController {
         return "newDisplayAcronyms";
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @PutMapping(path = "/updateAcronymDescription", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<String> updateAcronymDescription(@RequestBody UpdateDescriptionRequest request) {
+        try {
+            int acronymId = request.getId();
+            String newDescription = request.getNewDescription();
+
+            Optional<Acronyms> optionalAcronym = repositoryAcronyms.findById(acronymId);
+            if (optionalAcronym.isPresent()) {
+                Acronyms acronym = optionalAcronym.get();
+
+                acronym.setDescription((newDescription));
+                repositoryAcronyms.save(acronym);
+                return new ResponseEntity<>("Description updated successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Acronym not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error updating description: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
     @GetMapping(path = "/acronymsByCategory")
