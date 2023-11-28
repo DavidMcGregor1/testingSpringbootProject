@@ -19,6 +19,15 @@ function checkTextArea() {
 
 const newDescriptionInput = document.getElementById("newDescription");
 document.getElementById("edit-description").classList.add("noneClass");
+document.getElementById("add-acronym-container").classList.add("noneClass");
+
+function addNewAcronym() {
+  console.log("Called addNewAcronym method");
+  document
+    .getElementById("add-acronym-container")
+    .classList.remove("noneClass");
+  document.getElementById("description").classList.add("noneClass");
+}
 
 function editDescription() {
   console.log("Called edit description method");
