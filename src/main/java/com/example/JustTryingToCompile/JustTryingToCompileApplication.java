@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JustTryingToCompileApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(JustTryingToCompileApplication.class, args);
 	}
 

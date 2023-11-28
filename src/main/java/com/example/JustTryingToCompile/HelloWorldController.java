@@ -13,11 +13,13 @@ import java.util.*;
 @Controller
 public class HelloWorldController {
 
-    public HelloWorldController(AcronymsRepository a) {
+    public HelloWorldController(AcronymsRepository a, CategoriesRepository c) {
         repositoryAcronyms = a;
+        repositoryCategories = c;
     }
 
     private AcronymsRepository repositoryAcronyms;
+    private CategoriesRepository repositoryCategories;
 
     @GetMapping(path = "/")
     public String defualt() {
@@ -102,6 +104,7 @@ public class HelloWorldController {
                 //length is -1 and category is specified - get by category
                 acronyms = repositoryAcronyms.findByCategoryIgnoreCase(category);
 
+
             }
         } else {
             if(category.equals("all")) {
@@ -118,6 +121,21 @@ public class HelloWorldController {
         return acronyms;
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @PostMapping(path ="/getCategoryById", consumes = "application/json", produces = "application/json")
+    public CategoriesVm getCategoryById (@RequestBody CategoriesVm submittedId) {
+        System.out.println("Hit get category by id");
+
+        Optional<Categories>  categoryId = repositoryCategories.findById(submittedId.id);
+        CategoriesVm result = new CategoriesVm();
+        result.id = categoryId.get().getId();
+        System.out.println(result);
+        result.category = categoryId.get().getCategory();
+        System.out.println(result);
+
+        return result;
+    }
 
 
     @ResponseStatus(value = HttpStatus.OK)

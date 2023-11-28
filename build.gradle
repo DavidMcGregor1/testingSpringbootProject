@@ -16,6 +16,12 @@ repositories {
 	mavenCentral()
 }
 
+sourceSets {
+	test {
+		java.srcDirs = ['src/test/java']
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -24,6 +30,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre8'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// Selenium WebDriver
+	implementation 'org.seleniumhq.selenium:selenium-java:4.15.0' // Check for the latest version on Maven Central
+
+	// JUnit for testing
+	testImplementation 'junit:junit:4.13.2' // Check for the latest version on Maven Central
 }
 
 tasks.named('bootBuildImage') {
