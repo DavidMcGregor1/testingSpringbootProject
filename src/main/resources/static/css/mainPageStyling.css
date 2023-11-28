@@ -17,18 +17,6 @@
     color: white;
   }
   
-  #meaning-th {
-    background-color: #071D49;
-    border-radius: 0%;
-    color: white;
-  }
-  
-  #acronym-th {
-    background-color: #071D49;
-    border-radius: 0%;
-        color: white;
-  
-  }
   
   #acronym-table {
     margin: 20px 2%;
@@ -43,14 +31,16 @@
   }
   
   #acronym-table th {
-    background-color: #f2f2f2;
+    background-color: #071D49;
+    color: white;
     font-weight:bold;
     font-size: 1.5rem;
     border-radius: 0%;
   }
   
   #acronym-table tr:nth-child(even) {
-    background-color: #D9D9D9;
+    /* background-color: #D9D9D9; */
+    background-color: #EFEFEF;
     font-size: 1.2rem;
     cursor: pointer;
   
@@ -126,6 +116,33 @@
   .table-container table {
     width: 100%;
   }
+
+  .meaning-header-with-add-btn {
+    text-align: left;
+    display: flex;
+    background-color: #01DEB2;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  #add-btn {
+    float: right;
+    margin-left: 10px;
+    width: 80px;
+    height: 25px;
+    border: none;
+    background-color: #EFEFEF;
+    border-radius: 5px;
+    margin-right: 5%;
+}
+
+#add-btn:hover {
+  background-color: #01DEB2;
+  cursor: pointer;
+}
+
+
   
   
   /* ---------- FILTER BY SECTION ---------- */
