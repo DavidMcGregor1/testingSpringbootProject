@@ -148,7 +148,7 @@ public class HelloWorldController {
         Optional<Acronyms> acronymId = repositoryAcronyms.findById(submittedId.id);
 
         AcronymsVm result = new AcronymsVm();
-        result.acronyms = acronymId.get().getAcronym();
+        result.acronym = acronymId.get().getAcronym();
         result.meaning = acronymId.get().getMeaning();
         result.category = acronymId.get().getCategory();
         result.id = acronymId.get().getId();
@@ -166,14 +166,12 @@ public class HelloWorldController {
         Optional<Acronyms> acronymId = repositoryAcronyms.findById(submittedId.id);
 
         AcronymsVm result = new AcronymsVm();
-        result.acronyms = acronymId.get().getAcronym();
+        result.acronym = acronymId.get().getAcronym();
         result.meaning = acronymId.get().getMeaning();
         result.description = acronymId.get().getDescription();
 
         return result;
     }
-
-
 
 
     @GetMapping(path = "/getAllAcronyms")
@@ -191,6 +189,20 @@ public class HelloWorldController {
                 ;            }
         }
         return result;
+    }
+
+    @PostMapping(path = "/addAcronym")
+    @ResponseBody
+    public AcronymsVm addAcronym(@RequestBody AcronymsVm submittedAcronym) {
+        System.out.println("Hit addAcronym API");
+        Acronyms newAcronym = new Acronyms();
+        newAcronym.setAcronym(submittedAcronym.acronym);
+        newAcronym.setMeaning(submittedAcronym.meaning);
+        newAcronym.setDescription(submittedAcronym.description);
+
+        repositoryAcronyms.save(newAcronym);
+
+        return submittedAcronym;
     }
 
 
