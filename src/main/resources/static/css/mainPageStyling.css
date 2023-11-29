@@ -223,7 +223,7 @@
     justify-content: space-between;
   }
   
-  #description-title {
+  .small-title {
     color: white;
     text-align: center;
     margin-bottom: 10%;
@@ -326,7 +326,12 @@
     font-size: 1.5rem;
   }
 
-  .new-acronym-input {
+  #new-acronym-letters {
+    width: 30%;
+    margin-bottom: 2%;
+  }
+
+  #new-acronym-meaning {
     width: 50%;
     margin-bottom: 2%;
   }
@@ -423,7 +428,7 @@
   }
   
   
-  /* ---------- DESCRIPTION SECTION ---------- */
+  /* ---------- EDIT DESCRIPTION SECTION ---------- */
   
   .noneClass {
     display: none !important;
@@ -437,7 +442,7 @@
   
   #newDescription {
     width: 90%;
-    height: 90%;
+    height: 80%;
   }
   
   #edit-description {
@@ -445,7 +450,7 @@
   }
   
   #edit-description {
-    height: 650px;
+    height: 600px;
     width: 400px;
     background-color: #071D49;
     grid-column: 2 /3;
