@@ -190,7 +190,6 @@ function filterTableBySearch() {
   tr = table.getElementsByTagName("tr");
 
   if (filter === "") {
-    // If the search input is empty, reset the table
     resetTable();
     return;
   }
