@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="/css/mainPageStyling.css"/>
 </head>
 <body>
-
     <h1 id="acronym-meanings-title">Acronym Meanings</h1>
 
       <div class="filter-section">
-        <p id="filter-by-text">Filter by:</p>
 
+        <p id="filter-by-text">Filter by:</p>
         <div class="filter-option-container">
           <select class="select-option" name="category" id="categoryDropdown">
             <option value="all" disabled selected>
@@ -22,8 +21,6 @@
             <option value="Tech">Tech</option>
           </select>
         </div>
-
-        
 
         <div class="filter-option-container">
           <select class="select-option" name="Length" id="lengthDropdown">
@@ -35,15 +32,11 @@
           </select>
         </div>
 
-        
-
         <div class="filter-option-container">
           <button class="select-option" id="all-button">
             All
           </button>
         </div>
-
-        
 
         <div class="search-container">
           <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24">
@@ -52,13 +45,13 @@
               </g>
           </svg>
           <input placeholder="Search" onkeyup="filterTableBySearch()" type="search" class="search-input" id="search-input-id">
-      </div>
+        </div>
 
       </div>
+
 
       <div class="main-container">
         <div class="table-container">
-        
           <table id="acronym-table">
             <thead>
               <tr>
@@ -87,7 +80,6 @@
               Lorem 
             </p>
           </div>
-
           <div class="bottom-bar">
             <button class="edit-button bottom-button" onclick="editDescription()">🖊️</button>
             <button id="like-button">❤️</button>
@@ -103,7 +95,6 @@
           <div class="new-description-text-div">
             <textarea type="text" id="newDescription" oninput="checkTextArea()"></textarea>
           </div>
-
           <div class="edit-description-bottom-bar">
             <button id="cancel-description-button" onclick="cancelEdit()">Cancel</button>
             <button id="submit-description-button">Submit</button>
@@ -123,7 +114,6 @@
 
         <div id="add-acronym-container">
             <h2 id="add-new-acronym-title">Add a new acronym</h2>
-
             <div id="new-acronym-form">
               <div class="A-M-C-Options">
                 <label for="new-acronym-letters" class="new-acronym-labels">Acronym:</label>
@@ -138,13 +128,7 @@
                   <option value="Business">Business</option>
                   <option value="Tech">Tech</option>
                 </select>
-
-                
-
               </div>
-
-              
-              
             </div>
 
             <div class="new-acronym-description-container">
@@ -156,14 +140,10 @@
               <button id="cancel-description-button" onclick="cancelNewAcronym()">Cancel</button>
               <button type="submit" id="submit-new-acronym-button">Submit</button>
             </div>
-
-          
         </div>
-
       </div>
     </div>
 
     <script src="/javascript/mainPageScript.js"></script>
-    
 </body>
 </html>
