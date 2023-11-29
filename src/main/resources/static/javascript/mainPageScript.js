@@ -29,11 +29,15 @@ submitNewAcronymButton.addEventListener("click", () => {
   const meaning = document.getElementById("new-acronym-meaning").value;
   const category = document.getElementById("new-acronym-category").value;
   const description = document.getElementById("new-acronym-description").value;
+  const length = acronymLetters.length;
+
+  console.log("length = " + length);
 
   const NewAcronymData = {
     acronym: acronymLetters,
     meaning: meaning,
     category: category,
+    length: length,
     description: description,
   };
 
@@ -42,7 +46,6 @@ submitNewAcronymButton.addEventListener("click", () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         console.log("Acronym Sucessfully added");
-        addAcronymForm.reset();
       } else {
         console.error("Error adding acronym:", xhr.status);
       }
@@ -54,6 +57,10 @@ submitNewAcronymButton.addEventListener("click", () => {
 
   const requestBody = JSON.stringify(NewAcronymData);
   xhr.send(requestBody);
+
+  setTimeout(function () {
+    window.location.reload();
+  }, 3000);
 });
 
 const newDescriptionInput = document.getElementById("newDescription");
@@ -215,43 +222,6 @@ document.addEventListener("DOMContentLoaded", function () {
   submitNewAcronymButton.addEventListener("click", () => {
     console.log("PLEASE");
   });
-  const addAcronymForm = document.getElementById("new-acronym-form");
-  // submitNewAcronymButton.addEventListener("click", function () {
-  //   // event.preventDefault();
-  //   console.log("Clicked submit new acronym button");
-
-  //   const acronymLetters = document.getElementById("new-acronym-input").value;
-  //   const meaning = document.getElementById("new-acronym-meaning").value;
-  //   const category = document.getElementById("new-acronym-category").value;
-  //   const description = document.getElementById(
-  //     "new-acronym-description"
-  //   ).value;
-
-  //   const NewAcronymData = {
-  //     acronym: acronymLetters,
-  //     meaning: meaning,
-  //     category: category,
-  //     description: description,
-  //   };
-
-  //   const xhr = new XMLHttpRequest();
-  //   xhr.onreadystatechange = function () {
-  //     if (xhr.readyState === 4) {
-  //       if (xhr.status === 200) {
-  //         console.log("Acronym Sucessfully added");
-  //         addAcronymForm.reset();
-  //       } else {
-  //         console.error("Error adding acronym:", xhr.status);
-  //       }
-  //     }
-  //   };
-
-  //   xhr.open("POST", "/addAcronym", true);
-  //   xhr.setRequestHeader("Content-Type", "application/json");
-
-  //   const requestBody = JSON.stringify(NewAcronymData);
-  //   xhr.send(requestBody);
-  // });
 
   // Add event listener for the "search" event
   searchInput.addEventListener("search", function () {

@@ -199,6 +199,7 @@ public class HelloWorldController {
         newAcronym.setAcronym(submittedAcronym.acronym);
         newAcronym.setMeaning(submittedAcronym.meaning);
         newAcronym.setCategory(submittedAcronym.category);
+        newAcronym.setLength(submittedAcronym.length);
         newAcronym.setDescription(submittedAcronym.description);
 
         repositoryAcronyms.save(newAcronym);
