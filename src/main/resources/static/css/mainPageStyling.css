@@ -32,6 +32,10 @@
     padding: 10px 20px;
     text-align: left;
   }
+
+  #acronym-table tbody tr.hidden-row {
+    display: none;
+  }
   
   #acronym-table th {
     background-color: #071D49;

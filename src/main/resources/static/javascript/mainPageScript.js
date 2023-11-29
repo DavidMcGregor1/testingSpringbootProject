@@ -213,9 +213,9 @@ function filterTableBySearch() {
     }
 
     if (matchFound) {
-      tr[i].style.display = "";
+      tr[i].classList.remove("hidden-row");
     } else {
-      tr[i].style.display = "none";
+      tr[i].classList.add("hidden-row");
     }
   }
 }
