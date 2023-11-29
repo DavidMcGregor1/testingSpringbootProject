@@ -17,6 +17,45 @@ function checkTextArea() {
   };
 }
 
+const submitNewAcronymButton = document.getElementById(
+  "submit-new-acronym-button"
+);
+
+submitNewAcronymButton.addEventListener("click", () => {
+  // event.preventDefault();
+  console.log("Clicked submit new acronym button");
+
+  const acronymLetters = document.getElementById("new-acronym-letters").value;
+  const meaning = document.getElementById("new-acronym-meaning").value;
+  const category = document.getElementById("new-acronym-category").value;
+  const description = document.getElementById("new-acronym-description").value;
+
+  const NewAcronymData = {
+    acronym: acronymLetters,
+    meaning: meaning,
+    category: category,
+    description: description,
+  };
+
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log("Acronym Sucessfully added");
+        addAcronymForm.reset();
+      } else {
+        console.error("Error adding acronym:", xhr.status);
+      }
+    }
+  };
+
+  xhr.open("POST", "/addAcronym", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  const requestBody = JSON.stringify(NewAcronymData);
+  xhr.send(requestBody);
+});
+
 const newDescriptionInput = document.getElementById("newDescription");
 document.getElementById("edit-description").classList.add("noneClass");
 document.getElementById("add-acronym-container").classList.add("noneClass");
@@ -162,7 +201,58 @@ function filterTableBySearch() {
   }
 }
 
+document
+  .getElementById("submit-description-button")
+  .addEventListener("click", () => {
+    console.log("There is no way this doesnt work");
+  });
+
 document.addEventListener("DOMContentLoaded", function () {
+  const submitNewAcronymButton = document.getElementById(
+    "submit-description-button"
+  );
+
+  submitNewAcronymButton.addEventListener("click", () => {
+    console.log("PLEASE");
+  });
+  const addAcronymForm = document.getElementById("new-acronym-form");
+  // submitNewAcronymButton.addEventListener("click", function () {
+  //   // event.preventDefault();
+  //   console.log("Clicked submit new acronym button");
+
+  //   const acronymLetters = document.getElementById("new-acronym-input").value;
+  //   const meaning = document.getElementById("new-acronym-meaning").value;
+  //   const category = document.getElementById("new-acronym-category").value;
+  //   const description = document.getElementById(
+  //     "new-acronym-description"
+  //   ).value;
+
+  //   const NewAcronymData = {
+  //     acronym: acronymLetters,
+  //     meaning: meaning,
+  //     category: category,
+  //     description: description,
+  //   };
+
+  //   const xhr = new XMLHttpRequest();
+  //   xhr.onreadystatechange = function () {
+  //     if (xhr.readyState === 4) {
+  //       if (xhr.status === 200) {
+  //         console.log("Acronym Sucessfully added");
+  //         addAcronymForm.reset();
+  //       } else {
+  //         console.error("Error adding acronym:", xhr.status);
+  //       }
+  //     }
+  //   };
+
+  //   xhr.open("POST", "/addAcronym", true);
+  //   xhr.setRequestHeader("Content-Type", "application/json");
+
+  //   const requestBody = JSON.stringify(NewAcronymData);
+  //   xhr.send(requestBody);
+  // });
+
   // Add event listener for the "search" event
   searchInput.addEventListener("search", function () {
     if (searchInput.value === "") {
