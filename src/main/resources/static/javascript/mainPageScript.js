@@ -26,8 +26,27 @@ function addNewAcronym() {
   document
     .getElementById("add-acronym-container")
     .classList.remove("noneClass");
+  document.getElementById("edit-description").classList.add("noneClass");
   document.getElementById("description").classList.add("noneClass");
 }
+
+const addAcronymAcronymInput = document.getElementById("new-acronym-letters");
+
+addAcronymAcronymInput.addEventListener("input", () => {
+  if (
+    addAcronymAcronymInput.value.length >
+    parseInt(addAcronymAcronymInput.maxLength)
+  ) {
+    addAcronymAcronymInput.value = addAcronymAcronymInput.value.slice(
+      0,
+      addAcronymAcronymInput.maxLength
+    );
+  }
+
+  addAcronymAcronymInput.value = addAcronymAcronymInput.value.toUpperCase();
+  console.log(addAcronymAcronymInput.value.length);
+  console.log(addAcronymAcronymInput.value);
+});
 
 function editDescription() {
   console.log("Called edit description method");
@@ -56,6 +75,12 @@ function editDescription() {
 function cancelEdit() {
   document.getElementById("description").classList.remove("noneClass");
   document.getElementById("edit-description").classList.add("noneClass");
+}
+
+function cancelNewAcronym() {
+  console.log("Clicked cancel button");
+  document.getElementById("description").classList.remove("noneClass");
+  document.getElementById("add-acronym-container").classList.add("noneClass");
 }
 
 function submitDescription() {

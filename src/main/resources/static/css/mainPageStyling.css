@@ -360,6 +360,10 @@
     margin-right: auto;
   }
 
+  #new-acronym-letters {
+    text-transform: uppercase;
+  }
+
   .new-acronym-form {
     padding-left: 10%;
     padding-right: 10%;
@@ -629,6 +633,11 @@
   font-weight: bold;
   color: white;
   }
+
+  #cancel-description-button:hover {
+    cursor: pointer;
+    background-color: #a02512;
+  }
   
   #submit-description-button {
   width: 120px;
@@ -637,6 +646,11 @@
   border-radius: 40px;
   border: none;
   font-weight: bold;
+  }
+
+  #submit-description-button:hover {
+    cursor: pointer;
+    background-color: #07bf9a;
   }
   
   .acronym-cell.highlighted,
