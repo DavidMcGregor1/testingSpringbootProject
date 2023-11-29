@@ -31,6 +31,10 @@ submitNewAcronymButton.addEventListener("click", () => {
   const description = document.getElementById("new-acronym-description").value;
   const length = acronymLetters.length;
 
+  const addedAcronym = acronymLetters.toUpperCase();
+  const thankYouMessage = document.getElementById("thank-you-message");
+  thankYouMessage.innerText = `Thank you for adding ${addedAcronym} to the platform`;
+
   console.log("length = " + length);
 
   const NewAcronymData = {
@@ -58,14 +62,22 @@ submitNewAcronymButton.addEventListener("click", () => {
   const requestBody = JSON.stringify(NewAcronymData);
   xhr.send(requestBody);
 
+  document
+    .getElementById("added-acronym-waiting-container")
+    .classList.remove("noneClass");
+  document.getElementById("add-acronym-container").classList.add("noneClass");
+
   setTimeout(function () {
     window.location.reload();
-  }, 3000);
+  }, 2500);
 });
 
 const newDescriptionInput = document.getElementById("newDescription");
 document.getElementById("edit-description").classList.add("noneClass");
 document.getElementById("add-acronym-container").classList.add("noneClass");
+document
+  .getElementById("added-acronym-waiting-container")
+  .classList.add("noneClass");
 
 function addNewAcronym() {
   console.log("Called addNewAcronym method");

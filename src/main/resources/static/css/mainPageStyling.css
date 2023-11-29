@@ -394,6 +394,48 @@
     justify-content: space-around;
     align-items: center;
     }
+
+
+  /* ---------- ADDED ACRONYM ---------- */
+
+  #added-acronym-waiting-container {
+    height: 600px;
+    width: 400px;
+    background-color: #071D49;
+    grid-column: 2 /3; /*here*/
+    margin-left: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #acronym-added-message {
+    color: white;
+    margin-top: 10%;
+    font-size: 30px;
+  }
+
+  .main-thankyou {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+ .acronym-added-container {
+  width: 250px;
+  height: 100px;
+ }
+
+ #tick {
+  font-size: 70px;
+ }
+
+  #thank-you-message {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
   
   
   /* ---------- MEDIA QUERIES ---------- */
