@@ -1,6 +1,7 @@
 package com.example.JustTryingToCompile;
 
 
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,13 +14,15 @@ import java.util.*;
 @Controller
 public class HelloWorldController {
 
-    public HelloWorldController(AcronymsRepository a, CategoriesRepository c) {
+    public HelloWorldController(AcronymsRepository a, CategoriesRepository c, UsersRepository u) {
         repositoryAcronyms = a;
         repositoryCategories = c;
+        repositoryUsers = u;
     }
 
     private AcronymsRepository repositoryAcronyms;
     private CategoriesRepository repositoryCategories;
+    private UsersRepository repositoryUsers;
 
     @GetMapping(path = "/")
     public String defualt() {
@@ -206,7 +209,31 @@ public class HelloWorldController {
 
         return submittedAcronym;
     }
+    @PostMapping(path = "/addUser")
+    @ResponseBody
+    public UsersVm addUser(@RequestBody UsersVm submittedUser) {
+        System.out.println("Hit addUsers API");
+        Users newUser = new Users();
+        newUser.setUsername(submittedUser.username);
+        newUser.setPassword(submittedUser.password);
+        repositoryUsers.save(newUser);
 
+        return newUser;
+    }
 
+    @GetMapping(path = "/getAllUsers")
+    @ResponseBody
+    public String getAllUsers() {
+        System.out.println("Hit getAllUsers API");
 
+        List<Users> allUsers = repositoryUsers.findAll();
+        String result = "Data ---> ";
+
+        for (int i = 0; i < allUsers.stream().count(); i++) {
+            Users a = allUsers.get(i);
+            if (a != null) {
+                result = result + a.getUsername() + a.getPassword() + ", "
+                ;            }
+        }
+        return result;    }
 }
