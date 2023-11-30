@@ -211,7 +211,7 @@ public class HelloWorldController {
     }
     @PostMapping(path = "/addUser")
     @ResponseBody
-    public UsersVm addUser(@RequestBody UsersVm submittedUser) {
+    public Users addUser(@RequestBody UsersVm submittedUser) {
         System.out.println("Hit addUsers API");
         Users newUser = new Users();
         newUser.setUsername(submittedUser.username);
@@ -236,4 +236,11 @@ public class HelloWorldController {
                 ;            }
         }
         return result;    }
+
+
+    @GetMapping(path = "/displaySignInPage")
+    public String displaySignInPage() {
+        return "loginPage";
+    }
+
 }
