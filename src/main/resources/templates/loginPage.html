@@ -22,11 +22,12 @@
     <div id="sign-up-container">
         <form>
             <h2 class="makeWhite">Sign up</h2>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <input type="password" placeholder="Confirm Password" required>
+            <input id="username-input" type="text" placeholder="Username" readonly>
+            <input type="password" placeholder="Password">
+            <input type="password" placeholder="Confirm Password">
             <p class="signup makewhite"><a id="sign-in-btn">Sign in</a></p>
             <button type="submit">Sign Up</button>
+            <button id="regenerate-button" onclick="generateUsername()">REg</button>
         </form>
     </div>
 
@@ -46,6 +47,18 @@
             signUpContainer.classList.add("noneClass");
             signInContainer.classList.remove("noneClass");
         })
+
+        function generateUsername() {
+            const adjectives = ['Happy', 'Sunny', 'Smelly'];
+            const nouns = ['Orange', 'Elephant', 'Penguin']
+
+            const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+            const generatedUsername = randomAdjective + randomNoun;
+            document.getElementById("username-input").value = generatedUsername;
+        }
+
+        generateUsername();
 
     </script>
     
