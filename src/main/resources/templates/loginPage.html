@@ -10,17 +10,17 @@
 <body>
     <h1 id="welcome-header">Welcome to the HL acronym learning platform!</h1>
     <div id="sign-in-container">
-        <form>
+        <div id="form">
             <h2 class="makeWhite">Sign in</h2>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
+            <input id="username-login-input" type="text" placeholder="Username" required>
+            <input id="password-login-input" type="password" placeholder="Password" required>
             <p class="signup makewhite"><a id="sign-up-btn">Sign up</a></p>
-            <button type="submit">Login</button>
-        </form>
+            <button class="Button" id="login-button">Login</button>
+        </div>
     </div>
 
     <div id="sign-up-container">
-        <form>
+        <div id="form">
             <h2 class="makeWhite">Sign up</h2>
             <div id="username-section">
                 <input id="username-input" type="text" placeholder="Username" readonly>
@@ -29,51 +29,11 @@
             <input type="password" placeholder="Password">
             <input type="password" placeholder="Confirm Password">
             <p class="signup makewhite"><a id="sign-in-btn">Sign in</a></p>
-            <button type="submit">Sign Up</button>
-        </form>
+            <button class="Button" id="signup-button">Sign Up</button>
+        </div>
     </div>
 
-    <script>
-        const signUpContainer = document.getElementById("sign-up-container");
-        const signInContainer = document.getElementById("sign-in-container");
-        const signUpButton = document.getElementById("sign-up-btn");
-        const signInButton = document.getElementById("sign-in-btn");
-        const regenerateButton = document.getElementById("regenerate-button");
-        signUpContainer.classList.add("noneClass");
-
-        signUpButton.addEventListener('click', () => {
-            console.log("Clicked signUpButton");
-            signInContainer.classList.add("noneClass");
-            signUpContainer.classList.remove("noneClass");
-            generateUsername();
-
-        })
-
-        signInButton.addEventListener('click', () => {
-            console.log("Clicked signInButton");
-            signUpContainer.classList.add("noneClass");
-            signInContainer.classList.remove("noneClass");
-        })
-
-        regenerateButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            console.log("Clicked regen button")
-        })
-
-        function generateUsername() {
-            console.log("Called generateUsername method")
-            const adjectives = ['Happy', 'Sunny', 'Smelly'];
-            const nouns = ['Orange', 'Elephant', 'Penguin']
-
-            const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-            const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-            const generatedUsername = randomAdjective + randomNoun;
-            document.getElementById("username-input").value = generatedUsername;
-        }
-
-        
-
-    </script>
+    <script src="/javascript/loginScript.js"></script>
     
 </body>
 </html>

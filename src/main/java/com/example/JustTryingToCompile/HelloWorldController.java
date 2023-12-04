@@ -244,23 +244,27 @@ public class HelloWorldController {
         return "loginPage";
     }
 
-    @GetMapping(path = "/validateLogin")
+    @CrossOrigin(origins = "http://localhost:8082", allowCredentials = "true")
+    @PostMapping(path = "/validateLogin")
     @ResponseBody
-    public String validateLogin(@RequestBody UsersVm userToValidate) {
+    public ResponseEntity<Map<String, String>> validateLogin(@RequestBody UsersVm userToValidate) {
         System.out.println("Hit ValidateLogin api");
         List<Users> allUsersInDB = repositoryUsers.findAll();
-        boolean isMatch;
 
-        for (int i =0; i < allUsersInDB.stream().count(); i++) {
-            System.out.println(i);
-            Users u = allUsersInDB.get(i);
-            if (userToValidate.username.equals(u.username) && userToValidate.password.equals(u.password)) {
+        for (Users u : allUsersInDB) {
+            if (userToValidate.username.equals(u.getUsername()) && userToValidate.password.equals(u.getPassword())) {
                 System.out.println("FOUND A MATCH");
-                return "Working";
+                Map<String, String> response = new HashMap<>();
+                response.put("result", "Login success");
+                return ResponseEntity.ok(response);
             }
-
         }
-        return "not";
+
+        System.out.println("Could not find a match");
+        Map<String, String> response = new HashMap<>();
+        response.put("result", "Login failed");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
+
 
 }

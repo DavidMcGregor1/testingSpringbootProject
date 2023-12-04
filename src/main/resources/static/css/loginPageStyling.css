@@ -45,7 +45,7 @@ body {
     color: white;
 }
 
-form {
+#form {
     display: flex;
     flex-direction: column;
 }
@@ -63,7 +63,7 @@ input[type="password"] {
     border: 1px solid #ccc;
 }
 
-button[type="submit"] {
+.Button {
     padding: 10px;
     background-color: #01DEB2;
     color: black;
