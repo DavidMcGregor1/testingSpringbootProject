@@ -22,12 +22,14 @@
     <div id="sign-up-container">
         <form>
             <h2 class="makeWhite">Sign up</h2>
-            <input id="username-input" type="text" placeholder="Username" readonly>
+            <div id="username-section">
+                <input id="username-input" type="text" placeholder="Username" readonly>
+                <button id="regenerate-button" onclick="generateUsername()">🔄</button>
+            </div>
             <input type="password" placeholder="Password">
             <input type="password" placeholder="Confirm Password">
             <p class="signup makewhite"><a id="sign-in-btn">Sign in</a></p>
             <button type="submit">Sign Up</button>
-            <button id="regenerate-button" onclick="generateUsername()">REg</button>
         </form>
     </div>
 
@@ -36,19 +38,30 @@
         const signInContainer = document.getElementById("sign-in-container");
         const signUpButton = document.getElementById("sign-up-btn");
         const signInButton = document.getElementById("sign-in-btn");
+        const regenerateButton = document.getElementById("regenerate-button");
         signUpContainer.classList.add("noneClass");
 
         signUpButton.addEventListener('click', () => {
+            console.log("Clicked signUpButton");
             signInContainer.classList.add("noneClass");
             signUpContainer.classList.remove("noneClass");
+            generateUsername();
+
         })
 
         signInButton.addEventListener('click', () => {
+            console.log("Clicked signInButton");
             signUpContainer.classList.add("noneClass");
             signInContainer.classList.remove("noneClass");
         })
 
+        regenerateButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log("Clicked regen button")
+        })
+
         function generateUsername() {
+            console.log("Called generateUsername method")
             const adjectives = ['Happy', 'Sunny', 'Smelly'];
             const nouns = ['Orange', 'Elephant', 'Penguin']
 
@@ -58,7 +71,7 @@
             document.getElementById("username-input").value = generatedUsername;
         }
 
-        generateUsername();
+        
 
     </script>
     

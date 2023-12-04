@@ -30,10 +30,10 @@ public class HelloWorldController {
     }
 
 
-    @GetMapping(path = "/displayNewAcronyms")
+    @GetMapping(path = "/learnPage")
     public String displayNewAcronyms(@RequestParam(name = "category", required = false) String category, Model model) {
 
-        System.out.println("Hit displayAcronyms API");
+        System.out.println("Hit learnPage API");
 
         List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
 
@@ -238,9 +238,29 @@ public class HelloWorldController {
         return result;    }
 
 
-    @GetMapping(path = "/displaySignInPage")
+
+    @GetMapping(path = "/login")
     public String displaySignInPage() {
         return "loginPage";
+    }
+
+    @GetMapping(path = "/validateLogin")
+    @ResponseBody
+    public String validateLogin(@RequestBody UsersVm userToValidate) {
+        System.out.println("Hit ValidateLogin api");
+        List<Users> allUsersInDB = repositoryUsers.findAll();
+        boolean isMatch;
+
+        for (int i =0; i < allUsersInDB.stream().count(); i++) {
+            System.out.println(i);
+            Users u = allUsersInDB.get(i);
+            if (userToValidate.username.equals(u.username) && userToValidate.password.equals(u.password)) {
+                System.out.println("FOUND A MATCH");
+                return "Working";
+            }
+
+        }
+        return "not";
     }
 
 }
