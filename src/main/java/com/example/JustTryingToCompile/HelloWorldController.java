@@ -244,26 +244,36 @@ public class HelloWorldController {
         return "loginPage";
     }
 
-    @CrossOrigin(origins = "http://localhost:8082", allowCredentials = "true")
+    //CONFUSION IS SENDING A POST MAPPING IN THE JS WHICH INCLUDES THE USER CREDENTIALS, BUT NEED A
+    //GET MAPPING SERVER SIDE IN ORDER TO RETURN THE HTML PAGE
+
     @PostMapping(path = "/validateLogin")
-    @ResponseBody
-    public ResponseEntity<Map<String, String>> validateLogin(@RequestBody UsersVm userToValidate) {
+    public String validateLogin(@RequestBody UsersVm userToValidate) {
         System.out.println("Hit ValidateLogin api");
         List<Users> allUsersInDB = repositoryUsers.findAll();
-
+        System.out.println("User to validate:" + userToValidate);
+        System.out.println(userToValidate.username);
+        System.out.println(userToValidate.password);
+        boolean isMatch = false;
+        String result = "";
         for (Users u : allUsersInDB) {
             if (userToValidate.username.equals(u.getUsername()) && userToValidate.password.equals(u.getPassword())) {
+                isMatch = true;
                 System.out.println("FOUND A MATCH");
-                Map<String, String> response = new HashMap<>();
-                response.put("result", "Login success");
-                return ResponseEntity.ok(response);
+
+            } else if (!userToValidate.username.equals(u.getUsername()) && userToValidate.password.equals(u.getPassword())) {
+                isMatch = false;
+                System.out.println("Could not find a match");
             }
         }
 
-        System.out.println("Could not find a match");
-        Map<String, String> response = new HashMap<>();
-        response.put("result", "Login failed");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        if (isMatch == false) {
+            System.out.println("inside isMatch = false statement");
+            throw new AccessDeniedExeption();
+        }
+
+        System.out.println("What is being returned at the end of the function --> " + result);
+        return "newDisplayAcronyms";
     }
 
 

@@ -40,7 +40,7 @@ function generateUsername() {
 }
 
 // ---------- POST LOGIN TO API ----------
-
+const header = document.getElementById("welcome-header");
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", () => {
   const username = document.getElementById("username-login-input").value;
@@ -53,30 +53,24 @@ loginButton.addEventListener("click", () => {
   };
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", "/validateLogin", true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  // Include credentials in the request
-  xhr.withCredentials = true;
-
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
+    if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        const data = JSON.parse(xhr.responseText);
-        console.log(data);
-
-        if (data.result === "Login success") {
-          console.log("Login successful");
-        } else if (data.result === "Login failed") {
-          console.log("Login failed");
-        }
-      } else if (xhr.status === 401) {
-        console.log("Login failed (Unauthorized)");
+        console.log("status 200");
+        window.location.href = "learnPage";
       } else {
-        console.error("Error:", xhr.status);
+        console.log("Incorrect credentials");
+        header.innerText = "Incorrect Details, please try again";
+        setTimeout(() => {
+          header.innerText = "Welcome to the HL acronym learning platform!";
+        }, 2000);
       }
     }
   };
 
-  xhr.send(JSON.stringify(usernameCredentials));
+  xhr.open("POST", "/validateLogin", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  const requestBody = JSON.stringify(usernameCredentials);
+  console.log("Request body:" + requestBody);
+  xhr.send(requestBody);
 });
