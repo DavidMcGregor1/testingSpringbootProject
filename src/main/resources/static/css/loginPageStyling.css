@@ -76,6 +76,10 @@ input[type="password"] {
     height: 60px;
 }
 
+.Button:hover {
+    background-color: #07bf9a;
+}
+
 .signup {
     text-align: right;
     padding-right: 2%;
@@ -108,4 +112,14 @@ input[type="password"] {
     background-color: #1C1A5E;
     border: none;
     padding: 0;
+}
+
+.hide {
+    display: none;
+}
+
+#login-error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
 }

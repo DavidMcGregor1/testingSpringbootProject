@@ -40,7 +40,9 @@ function generateUsername() {
 }
 
 // ---------- POST LOGIN TO API ----------
-const header = document.getElementById("welcome-header");
+const loginError = document.getElementById("login-error");
+loginError.classList.add("hide");
+
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", () => {
   const username = document.getElementById("username-login-input").value;
@@ -60,10 +62,7 @@ loginButton.addEventListener("click", () => {
         window.location.href = "learnPage";
       } else {
         console.log("Incorrect credentials");
-        header.innerText = "Incorrect Details, please try again";
-        setTimeout(() => {
-          header.innerText = "Welcome to the HL acronym learning platform!";
-        }, 2000);
+        loginError.classList.remove("hide");
       }
     }
   };
