@@ -1,3 +1,52 @@
-h1 {
-    color: red;
+* {
+    font-family: 'inter', 'sans-serif';
+}
+
+body {
+    background-color: #1C1A5E;
+}
+
+#question {
+    color: white;
+    text-align: center;
+    padding-top: 1%;
+}
+
+#questionNumber {
+    color: #5666BD;
+    text-align: center;
+}
+
+.options {
+    padding-top: 5%;
+    gap: 40px;
+    justify-content: center;
+}
+
+.options button {
+    cursor: pointer;
+    padding: 15px;
+    width: 350px;
+    height: 80px;
+    border-radius: 20px;
+    font-size: large;
+}
+
+.option {
+    display: flex;
+    margin-bottom: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #D9D9D9;
+}
+
+.makeGreen {
+    background-color: green;
+}
+
+.makeRed {
+    background-color: red;
 }
