@@ -29,10 +29,7 @@ public class HelloWorldController {
         return "home";
     }
 
-     @GetMapping(path = "/quiz")
-    public String quiz() {
-        return "quizQuestionPage";
-    }
+
 
     @GetMapping(path = "/learnPage")
     public String displayNewAcronyms(@RequestParam(name = "category", required = false) String category, Model model) {
