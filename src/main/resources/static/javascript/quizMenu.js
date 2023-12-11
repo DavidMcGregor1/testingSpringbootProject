@@ -27,11 +27,15 @@ function selectButton() {
 }
 
 function selectCountdownMode() {
-  var button = document.getElementById("countdown-mode-button");
-  button.classList.add("selected");
+  var cButton = document.getElementById("countdown-mode-button");
+  var pButton = document.getElementById("practice-mode-button");
+  cButton.classList.add("selected");
+  pButton.classList.remove("selected");
 }
 
 function selectPracticeMode() {
-  var button = document.getElementById("practice-mode-button");
-  button.classList.add("selected");
+  var pButton = document.getElementById("practice-mode-button");
+  var cButton = document.getElementById("countdown-mode-button");
+  pButton.classList.add("selected");
+  cButton.classList.remove("selected");
 }
