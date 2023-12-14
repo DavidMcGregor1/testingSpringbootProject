@@ -17,12 +17,17 @@ function checkTextArea() {
   };
 }
 
+const backPageButton = document.getElementById("back-page-button");
+backPageButton.addEventListener("click", () => {
+  console.log("clicked back button");
+  window.location.replace("homePage");
+});
+
 const submitNewAcronymButton = document.getElementById(
   "submit-new-acronym-button"
 );
 
 submitNewAcronymButton.addEventListener("click", () => {
-  // event.preventDefault();
   console.log("Clicked submit new acronym button");
 
   const acronymLetters = document.getElementById("new-acronym-letters").value;

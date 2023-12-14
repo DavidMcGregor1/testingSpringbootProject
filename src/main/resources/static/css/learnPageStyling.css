@@ -13,6 +13,35 @@
   textarea {
     resize: none;
   }
+
+  header {
+    color: white;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  h1 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .back-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: white;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .back-button:hover {
+    cursor: pointer;
+    background-color: #01DEB2;
+  }
   
   /* ---------- ACRONYMS TABLE ---------- */
   

@@ -24,10 +24,6 @@ public class HelloWorldController {
     private CategoriesRepository repositoryCategories;
     private UsersRepository repositoryUsers;
 
-    @GetMapping(path = "/")
-    public String defualt() {
-        return "home";
-    }
 
 
 
@@ -42,7 +38,7 @@ public class HelloWorldController {
 
         model.addAttribute("acronyms", allAcronyms);
 
-        return "newDisplayAcronyms";
+        return "learnPage";
     }
 
     @ResponseStatus(value = HttpStatus.OK)
@@ -240,10 +236,7 @@ public class HelloWorldController {
 
 
 
-    @GetMapping(path = "/login")
-    public String displaySignInPage() {
-        return "loginPage";
-    }
+
 
     //CONFUSION IS SENDING A POST MAPPING IN THE JS WHICH INCLUDES THE USER CREDENTIALS, BUT NEED A
     //GET MAPPING SERVER SIDE IN ORDER TO RETURN THE HTML PAGE
@@ -274,7 +267,7 @@ public class HelloWorldController {
         }
 
         System.out.println("What is being returned at the end of the function --> " + result);
-        return "newDisplayAcronyms";
+        return "learnPage";
     }
 
 

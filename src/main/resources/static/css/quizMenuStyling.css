@@ -2,7 +2,7 @@
 
 body {
     background-color: #1C1A5E;
-    /* height: 100vh; */
+    height: 100vh;
     font-family: "Inter", sans-serif;
     align-items: center;
     justify-content: center;
@@ -13,9 +13,44 @@ button:hover {
     cursor: pointer;
 }
 
-.noneClass {
-    display: none !important;
-}
+header {
+    color: white;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  h1 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .back-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: white;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .back-button:hover {
+    cursor: pointer;
+    background-color: #01DEB2;
+  }
+
+  .back-button-hide {
+    padding: 5px 10px;
+    margin-left: 15px;
+    background-color: #1C1A5E;
+    color: #1C1A5E;
+    font-size: 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
 
 /* ---------- TITLES ---------- */
 
@@ -36,16 +71,30 @@ button:hover {
     color: white;
 }
 
-#select-question-title {
+#select-category-title {
     margin-top: 3%;
     text-align: center;
     color: white;
 }
 
-#select-category-title {
-    margin-top: 3%;
+/* .selected {
+    background-color: orange;
+} */
+
+.hidden {
+    display: none;
+}
+
+.clicked {
+    background-color: #01DEB2;
+}
+
+.start-button-container {
     text-align: center;
-    color: white;
+}
+
+.category-button.clicked, .length-button.clicked {
+    background-color: purple; /* Orange color */
 }
 
 /* ---------- MODE OPTIONS ---------- */
@@ -78,7 +127,7 @@ button:hover {
     gap: 30px;
 }
 
-.first-option-button {
+.cd-option-button, .p-option-button {
     width: 80px;
     height: 40px;
     border-radius: 40px;
@@ -99,19 +148,13 @@ button:hover {
     border: none;
 }
 
-.first-categories-button {
+.cd-categories-button, .p-categories-button, .cd-length-button, .p-length-button {
     width: 180px;
     height: 40px;
     border-radius: 40px;
     border: none;
-}
+    margin-bottom: 1%;
 
-.second-categories-button {
-    margin-top: 1%;
-    width: 180px;
-    height: 40px;
-    border-radius: 40px;
-    border: none;
 }
 
 .first-categories-options {
@@ -135,14 +178,6 @@ button:hover {
     border: none;
     background-color: #01DEB2;
     color: black;
-}
-
-.selected {
-    background-color: #01DEB2;
-}
-
-.start-button-container {
-    text-align: center;
 }
 
 /* ---------- MEDIA QUERIES ---------- */
@@ -188,3 +223,4 @@ button:hover {
         color: white;
     }
 }
+

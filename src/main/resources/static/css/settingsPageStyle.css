@@ -1,0 +1,105 @@
+body {
+    background-color: #1C1A5E;
+    height: 100vh;
+    font-family: "Inter", sans-serif;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#settings-header {
+    color: white;
+    text-align: center;
+}
+
+.first-options {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.second-options {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.option-button,
+.option-button-red {
+    height: 60px;
+    width: 300px;
+    border-radius: 40px;
+    border: none;
+    font-size: 25px;
+}
+
+.option-button:hover {
+    background-color: #01DEB2;
+    cursor: pointer;
+}
+
+.option-button-red {
+    background-color: #C63018;
+    color: white;
+}
+
+.option-button-red:hover {
+    background-color: #942615;
+    cursor: pointer;
+}
+
+header {
+    color: white;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5%;
+  }
+
+  h1 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .back-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: white;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .back-button:hover {
+    cursor: pointer;
+    background-color: #01DEB2;
+  }
+
+  .back-button-hide {
+    padding: 5px 10px;
+    margin-left: 15px;
+    background-color: #1C1A5E;
+    color: #1C1A5E;
+    font-size: 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+
+/* Media Query for Smaller Screens */
+@media only screen and (max-width: 768px) {
+    .second-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .option-button,
+    .option-button-red {
+        width: 80%; /* Adjust the width as needed for smaller screens */
+    }
+}

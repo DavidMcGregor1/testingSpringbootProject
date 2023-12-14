@@ -19,15 +19,7 @@ public class QuizController {
     private AcronymsRepository repositoryAcronyms;
     private CategoriesRepository repositoryCategories;
 
-    @GetMapping(path = "/quiz")
-    public String quiz() {
-        return "quizQuestionPage";
-    }
 
-    @GetMapping(path = "/quizMenu")
-    public String quizMenu() {
-        return "quizMenuPage";
-    }
 
     @GetMapping(path = "/displayQuestion")
     public List<Acronyms> displayQuestion(@RequestParam String category, Model model ) {

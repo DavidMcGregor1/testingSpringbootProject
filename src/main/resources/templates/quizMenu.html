@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Menu</title>
+    <link rel="stylesheet" href="/css/quizMenuStyling.css" >
+</head>
+<body>
+    <main>
+        <header>
+            <a class="back-button" id="back-page-button">🔙</a>
+            <h1 id="take-quiz-title">Take a quiz</h1>
+            <a class="back-button-hide">HH</a>
+        </header>
+        <h3 id="select-mode-title">Mode:</h3>
+        <header class="mode-option-container">
+            <button class="mode-option-button" id="countdown-mode-button">Countdown</button>
+            <button class="mode-option-button" id="practice-mode-button">Practice</button>
+        </header>
+        <section id="countdown-mode-container"> 
+            <h3 id="select-time-title">Time:</h3>
+            <div class="time-option-container">
+                <div class="first-time-options">
+                    <button class="cd-option-button">30s</button>
+                    <button class="cd-option-button">60s</button>
+                    <button class="cd-option-button">1m 30s</button>
+                </div>
+                <div class="second-time-options">
+                    <button class="cd-option-button">2m</button>
+                    <button class="cd-option-button">5m</button>
+                    <button class="cd-option-button">10m</button>
+                </div>
+    
+                <h3 id="select-category-title">Filters:</h3>
+                <div class="categories-option-container">
+                    <div class="first-categories-options">
+                        <button class="cd-categories-button">Business</button>
+                        <button class="cd-categories-button">Technology</button>
+                    </div>
+    
+                    <div class="second-categories-options">
+                        <button class="cd-length-button">3 Letter</button>
+                        <button class="cd-length-button">4 Letter</button>
+                        <button class="cd-length-button" id="c-all-button">All</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice-mode-container">
+            <h3 id="select-time-title">Number of questions:</h3>
+            <div class="time-option-container">
+                <div class="first-time-options">
+                    <button class="p-option-button">5</button>
+                    <button class="p-option-button">10</button>
+                    <button class="p-option-button">15</button>
+                </div>
+                <div class="second-time-options">
+                    <button class="p-option-button">20</button>
+                    <button class="p-option-button">50</button>
+                    <button class="p-option-button">100</button>
+                </div>
+    
+                <h3 id="select-category-title">Filters:</h3>
+                <div class="categories-option-container">
+                    <div class="first-categories-options">
+                        <button class="p-categories-button">Business</button>
+                        <button class="p-categories-button">Technology</button>
+                    </div>
+    
+                    <div class="second-categories-options">
+                        <button class="p-length-button">3 Letter</button>
+                        <button class="p-length-button">4 Letter</button>
+                        <button class="p-length-button" id="p-all-button">All</button>
+                    </div>
+                </div>
+        </section>
+        
+        <footer class="start-button-container">
+            <button id="start-button">Start</button>
+        </footer>
+
+    </main>
+    <script src="/javascript/quizMenu.js"></script>
+</body>
+</html>
