@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/leaderboardsPageStyling.css">
+    <script src="javascript/leadboardsPageScript.js"></script>
+</head>
+<body>
+
+    <header>
+        <a id="back-button" class="back-button">🔙</a>
+        <h1 id="leaderboards-title">Leaderboards</h1>
+    </header>
+    
+    <main>
+        <div class="hideDiv"></div>
+        <div class="select-mode-container">
+            <div class="mode-options">
+                <h3 id="select-mode-header">Select mode:</h3>
+                <button class="mode-option-button">Countdown</button>
+                <button class="mode-option-button">Practice</button>
+            </div>
+            <div class="time-options">
+                <button class="mode-option-button">All time</button>
+                <button class="mode-option-button">This year</button>
+                <button class="mode-option-button">This month</button>
+                <button class="mode-option-button">This week</button>
+            </div>
+            
+
+        </div>
+
+        <div class="leaderboards-container">
+                <table id="leaderboard-table">
+                  <thead>
+                    <tr>
+                      <th id="ranking-th">Ranking</th>
+                      <th id="username-th">Username</th>
+                      <th id="score-th">Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="acronym : ${acronyms}" th:attr="data-acronym-id=${acronym.id}">
+                      <td class="leaderboard-cell" th:text="${acronym.acronym}">01</td>
+                      <td class="leaderboard-cell" th:text="${acronym.meaning}">OrangeSnouts</td>
+                      <td>Score</td>
+                  </tr>
+                  </tbody>
+                </table>
+        </div>
+
+
+        <div class="filter-container">
+            <div class="filter-options">
+                <h3 id="filter-header">Filter by:</h3>
+                <div class="first-row">
+                    <button class="filter-option">30s</button>
+                    <button class="filter-option">60s</button>
+                </div>
+                <div class="second-row">
+                    <button class="filter-option">1m 30s</button>
+                    <button class="filter-option">2m</button>
+                </div>
+                <div class="third-row">
+                    <button class="filter-option">5m</button>
+                    <button class="filter-option">10m</button>
+                </div>
+                
+                
+            </div>
+            
+
+        </div>
+        <div class="hideDiv"></div>
+
+    </main>
+    
+</body>
+</html>

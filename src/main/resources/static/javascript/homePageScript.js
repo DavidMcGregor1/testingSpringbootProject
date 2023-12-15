@@ -31,4 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("clicked quiz option");
     window.location.replace("quizMenu");
   });
+
+  leaderboardsOption.addEventListener("click", () => {
+    console.log("clicked leaderboards option");
+    window.location.replace("leaderboardsPage");
+  });
 });

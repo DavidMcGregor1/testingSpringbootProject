@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Main variables
   const countdownModeContainer = document.getElementById(
     "countdown-mode-container"
   );
@@ -8,19 +9,35 @@ document.addEventListener("DOMContentLoaded", function () {
   const countdownButton = document.getElementById("countdown-mode-button");
   const practiceButton = document.getElementById("practice-mode-button");
   const startButton = document.getElementById("start-button");
-  //cd variables
+  // CD variables
   const cdOptionButtons = document.querySelectorAll(".cd-option-button");
   const cdCategoriesButtons = document.querySelectorAll(
     ".cd-categories-button"
   );
   const cdLengthButtons = document.querySelectorAll(".cd-length-button");
   const cdAllButton = document.getElementById("c-all-button");
-  //p variables
+  // P variables
   const pOptionButtons = document.querySelectorAll(".p-option-button");
   const pCategoriesButtons = document.querySelectorAll(".p-categories-button");
   const pLengthButtons = document.querySelectorAll(".p-length-button");
   const pAllButton = document.getElementById("p-all-button");
   const backButton = document.getElementById("back-page-button");
+  const minThirtyButton = document.getElementById("1m30s");
+  const fifteenButton = document.getElementById("15");
+
+  // Data variables
+  var countdownSelectedOptions = {
+    option: [],
+    categories: [],
+    length: [],
+    all: false,
+  };
+  var practiceSelectedOptions = {
+    option: [],
+    categories: [],
+    length: [],
+    all: false,
+  };
 
   backButton.addEventListener("click", () => {
     console.log("clicked back button");
@@ -31,16 +48,13 @@ document.addEventListener("DOMContentLoaded", function () {
   practiceModeContainer.classList.add("hidden");
   startButton.classList.add("hidden");
 
-  let cdAllSelected = false;
-  let pAllSelected = false;
-
   countdownButton.addEventListener("click", () => {
     countdownModeContainer.classList.remove("hidden");
     practiceModeContainer.classList.add("hidden");
     countdownButton.classList.add("clicked");
     practiceButton.classList.remove("clicked");
     startButton.classList.remove("hidden");
-    logSelection();
+    arrayToDisaply = countdownSelectedOptions;
   });
 
   practiceButton.addEventListener("click", () => {
@@ -51,156 +65,131 @@ document.addEventListener("DOMContentLoaded", function () {
     startButton.classList.remove("hidden");
   });
 
-  cdOptionButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      console.log("clicked cdOptionButtons");
-      cdOptionButtons.forEach((b) => b.classList.remove("clicked"));
-      button.classList.add("clicked");
-      logSelection();
-    });
-  });
+  function resetButtonGroup(buttons) {
+    buttons.forEach((button) => button.classList.remove("clicked"));
+  }
 
-  pOptionButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      pOptionButtons.forEach((b) => b.classList.remove("clicked"));
-      button.classList.add("clicked");
-      pLogSelection();
-    });
+  function handleButtonClick(
+    button,
+    buttons,
+    allButton,
+    selectedOptions,
+    section
+  ) {
+    if (allButton.classList.contains("clicked")) {
+      allButton.classList.remove("clicked");
+    }
+    resetButtonGroup(buttons);
+    button.classList.add("clicked");
+    console.log("Selected:", button.innerText);
+    selectedOptions[section] = [button.innerText];
+  }
+
+  // Countdown mode buttons
+  cdOptionButtons.forEach((button) => {
+    button.addEventListener("click", () =>
+      handleButtonClick(
+        button,
+        cdOptionButtons,
+        cdAllButton,
+        countdownSelectedOptions,
+        "option"
+      )
+    );
   });
 
   cdCategoriesButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      console.log("Clicked cdCategoriesButtons");
-      const isButtonClicked = button.classList.contains("clicked");
-      const group = button.getAttribute("data-group");
-
-      if (button === cdAllButton) {
-        cdCategoriesButtons.forEach((b) => b.classList.remove("clicked"));
-      } else {
-        cdCategoriesButtons.forEach((b) => {
-          if (b.getAttribute("data-group") === group) {
-            b.classList.remove("clicked");
-          }
-        });
-      }
-      button.classList.toggle("clicked", !isButtonClicked);
-      logSelection();
-    });
-  });
-
-  pCategoriesButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const isButtonClicked = button.classList.contains("clicked");
-      const group = button.getAttribute("data-group");
-
-      if (button === cdAllButton) {
-        pCategoriesButtons.forEach((b) => b.classList.remove("clicked"));
-      } else {
-        pCategoriesButtons.forEach((b) => {
-          if (b.getAttribute("data-group") === group) {
-            b.classList.remove("clicked");
-          }
-        });
-      }
-      button.classList.toggle("clicked", !isButtonClicked);
-      pLogSelection();
+      console.log("clicked categories button");
+      handleButtonClick(
+        button,
+        cdCategoriesButtons,
+        cdAllButton,
+        countdownSelectedOptions,
+        "categories"
+      );
+      countdownSelectedOptions.all = false;
     });
   });
 
   cdLengthButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      cdLengthButtons.forEach((b) => b.classList.remove("clicked"));
-      button.classList.add("clicked");
-      logSelection();
-    });
-  });
-
-  pLengthButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      pLengthButtons.forEach((b) => b.classList.remove("clicked"));
-      button.classList.add("clicked");
-      pLogSelection();
+      console.log("clicked length button");
+      handleButtonClick(
+        button,
+        cdLengthButtons,
+        cdAllButton,
+        countdownSelectedOptions,
+        "length"
+      );
+      countdownSelectedOptions.all = false;
     });
   });
 
   cdAllButton.addEventListener("click", () => {
-    cdCategoriesButtons.forEach((button) => button.classList.remove("clicked"));
+    resetButtonGroup(cdCategoriesButtons);
+    resetButtonGroup(cdLengthButtons);
     cdAllButton.classList.add("clicked");
-    cdAllSelected = cdAllButton.classList.contains("clicked");
-    logSelection();
+    countdownSelectedOptions.all = true;
+  });
+
+  // Practice mode buttons
+  pOptionButtons.forEach((button) => {
+    button.addEventListener("click", () =>
+      handleButtonClick(
+        button,
+        pOptionButtons,
+        pAllButton,
+        practiceSelectedOptions,
+        "option"
+      )
+    );
+  });
+
+  pCategoriesButtons.forEach((button) => {
+    button.addEventListener("click", () =>
+      handleButtonClick(
+        button,
+        pCategoriesButtons,
+        pAllButton,
+        practiceSelectedOptions,
+        "categories"
+      )
+    );
+  });
+
+  pLengthButtons.forEach((button) => {
+    button.addEventListener("click", () =>
+      handleButtonClick(
+        button,
+        pLengthButtons,
+        pAllButton,
+        practiceSelectedOptions,
+        "length"
+      )
+    );
   });
 
   pAllButton.addEventListener("click", () => {
-    pCategoriesButtons.forEach((button) => button.classList.remove("clicked"));
+    resetButtonGroup(pCategoriesButtons);
+    resetButtonGroup(pLengthButtons);
     pAllButton.classList.add("clicked");
-    pAllSelected = pAllButton.classList.contains("clicked");
-    pLogSelection();
+    practiceSelectedOptions.all = true;
   });
+
+  // Simulate a click on the default buttons for Countdown and Practice modes
+  minThirtyButton.click();
+  fifteenButton.click();
+  cdAllButton.click();
+  pAllButton.click();
 
   startButton.addEventListener("click", () => {
-    console.log("Starting quiz...");
+    console.log("clicked start button");
+    if (countdownButton.classList.contains("clicked")) {
+      console.log("clicked countdownbutton");
+      console.log("Countdown selected options =>", countdownSelectedOptions);
+    } else if (practiceButton.classList.contains("clicked")) {
+      console.log("Practice selected options =>", practiceSelectedOptions);
+    }
   });
-
-  function logSelection() {
-    console.log("Inside of countdown mode log section method");
-
-    const selectedMode = countdownButton.classList.contains("clicked")
-      ? "Countdown"
-      : "Practice";
-    const selectedTime = document.querySelector(".cd-option-button.clicked");
-    const selectedCCategories = Array.from(
-      document.querySelectorAll(".cd-categories-button.clicked")
-    ).map((button) => button.textContent);
-    const selectedCLength = cdAllSelected
-      ? null
-      : Array.from(document.querySelectorAll(".cd-length-button.clicked"))
-          .map((button) => button.textContent)
-          .pop();
-
-    console.log("Selected mode: " + selectedMode);
-    console.log(
-      "Selected time: --> " + (selectedTime ? selectedTime.textContent : null)
-    );
-    console.log(
-      "Selected category: " +
-        (selectedCCategories.length > 0 ? selectedCCategories : null)
-    );
-    console.log(
-      "Selected length: " + (selectedCLength ? selectedCLength : null)
-    );
-    console.log("Selected all: " + cdAllSelected);
-    console.log("------------------------------");
-  }
-
-  function pLogSelection() {
-    console.log("Inside of practice mode log section method");
-
-    const selectedMode = countdownButton.classList.contains("clicked")
-      ? "Countdown"
-      : "Practice";
-    const selectedTime = document.querySelector(".p-option-button.clicked");
-    const selectedCCategories = Array.from(
-      document.querySelectorAll(".p-categories-button.clicked")
-    ).map((button) => button.textContent);
-    const selectedCLength = pAllSelected
-      ? null
-      : Array.from(document.querySelectorAll(".p-length-button.clicked"))
-          .map((button) => button.textContent)
-          .pop();
-
-    console.log("Selected mode: " + selectedMode);
-    console.log(
-      "Selected questions: --> " +
-        (selectedTime ? selectedTime.textContent : null)
-    );
-    console.log(
-      "Selected category: " +
-        (selectedCCategories.length > 0 ? selectedCCategories : null)
-    );
-    console.log(
-      "Selected length: " + (selectedCLength ? selectedCLength : null)
-    );
-    console.log("Selected all: " + pAllSelected);
-    console.log("------------------------------");
-  }
 });

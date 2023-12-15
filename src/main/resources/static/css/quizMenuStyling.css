@@ -8,6 +8,10 @@ body {
     justify-content: center;
 }
 
+button {
+    font-size: large;
+  }
+
 button:hover {
     background-color: #01DEB2;
     cursor: pointer;
@@ -223,4 +227,3 @@ header {
         color: white;
     }
 }
-
