@@ -36,7 +36,7 @@ function generateUsername() {
     adjectives[Math.floor(Math.random() * adjectives.length)];
   const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
   const generatedUsername = randomAdjective + randomNoun;
-  document.getElementById("username-input").value = generatedUsername;
+  document.getElementById("username-signup-input").value = generatedUsername;
 }
 
 // ---------- POST LOGIN TO API ----------
@@ -72,4 +72,42 @@ loginButton.addEventListener("click", () => {
   const requestBody = JSON.stringify(usernameCredentials);
   console.log("Request body:" + requestBody);
   xhr.send(requestBody);
+});
+
+// ---------- CREATE NEW USER ----------
+
+const username = document.getElementById("username-signup-input");
+const password = document.getElementById("signup-password");
+const confirmPassword = document.getElementById("confirm-signup-password");
+const signupButton = document.getElementById("signup-button");
+
+const newUsernameCredentials = {
+  username: username,
+  password: password,
+};
+
+signupButton.addEventListener("click", () => {
+  console.log("clicked signup button");
+  if (password.value === confirmPassword.value) {
+    console.log("passwords are fine");
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          console.log("status 200");
+        } else {
+          console.log("Incorrect credentials");
+        }
+      }
+    };
+
+    xhr.open("POST", "/addUserFromSignup", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    const requestBody = JSON.stringify(newUsernameCredentials);
+    console.log("Request body:" + requestBody);
+    xhr.send(requestBody);
+  } else {
+    alert("make sure passwords match");
+  }
 });

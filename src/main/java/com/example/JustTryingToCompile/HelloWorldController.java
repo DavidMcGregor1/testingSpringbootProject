@@ -241,34 +241,7 @@ public class HelloWorldController {
     //CONFUSION IS SENDING A POST MAPPING IN THE JS WHICH INCLUDES THE USER CREDENTIALS, BUT NEED A
     //GET MAPPING SERVER SIDE IN ORDER TO RETURN THE HTML PAGE
 
-    @PostMapping(path = "/validateLogin")
-    public String validateLogin(@RequestBody UsersVm userToValidate) {
-        System.out.println("Hit ValidateLogin api");
-        List<Users> allUsersInDB = repositoryUsers.findAll();
-        System.out.println("User to validate:" + userToValidate);
-        System.out.println(userToValidate.username);
-        System.out.println(userToValidate.password);
-        boolean isMatch = false;
-        String result = "";
-        for (Users u : allUsersInDB) {
-            if (userToValidate.username.equals(u.getUsername()) && userToValidate.password.equals(u.getPassword())) {
-                isMatch = true;
-                System.out.println("FOUND A MATCH");
 
-            } else if (!userToValidate.username.equals(u.getUsername()) && userToValidate.password.equals(u.getPassword())) {
-                isMatch = false;
-                System.out.println("Could not find a match");
-            }
-        }
-
-        if (isMatch == false) {
-            System.out.println("inside isMatch = false statement");
-            throw new AccessDeniedExeption();
-        }
-
-        System.out.println("What is being returned at the end of the function --> " + result);
-        return "learnPage";
-    }
 
 
 }
