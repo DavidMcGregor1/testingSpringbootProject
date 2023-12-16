@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 
 import java.util.*;
 
-@Controller
+@RestController
 public class LoginController {
 
     public LoginController(UsersRepository u) {
@@ -61,13 +61,24 @@ public class LoginController {
         return "TEST";
     }
 
+    @PostMapping(path = "devAddUser")
+    public Users devAddUser(@RequestBody UsersVm incomingUser) {
+        System.out.println("hit devAddUser api");
+        Users newUser = new Users();
+        System.out.println(incomingUser.username);
+        newUser.setUsername(incomingUser.username);
+        repositoryUsers.save(newUser);
+        return newUser;
+    }
+
     @PostMapping(path = "/addUserFromSignup")
     public ResponseEntity<String> addUserFromSignup(@RequestBody UsersVm incomingUser) {
         System.out.println("hit addUserFromSignup");
         List<Users> allUsersInDB = repositoryUsers.findAll();
         System.out.println("Incoming user" + incomingUser);
-
-        // Process the user data and construct the response string
+        List<Users> usernameToAddPasswordTo = repositoryUsers.findByUsername(incomingUser.username);
+        System.out.println(usernameToAddPasswordTo);
+        usernameToAddPasswordTo.
         String responseMessage = "Username --> " + incomingUser.username;
 
         // Return the response string
